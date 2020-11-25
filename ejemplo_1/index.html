@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer VueJS</title>
+</head>
+<body>
+    <div id="app">
+        <h2>{{mensaje}}</h2>
+
+        <h2 v-text="mensaje"></h2>
+        <p>Año actual: <span>{{year}}</span></p>
+
+        <p>Es el año actual: {{verdadero}}</p>
+        <div>
+            <ul>
+                <li>valor 1: {{arreglo[0]}}</li>
+                <li>valor 2: {{arreglo[1]}}</li>
+                <li>valor 3: {{arreglo[2]}}</li>
+                <li>valor 4: {{arreglo[3]}}</li>
+            </ul>
+            <ol>
+                <li v-text="arreglo[0]"></li>
+                <li v-text="arreglo[1]"></li>
+                <li v-text="arreglo[2]"></li>
+                <li v-text="arreglo[3]"></li>
+            </ol>
+        </div>
+        <h3>El nombre es: {{objeto.name}} y el apellido: {{objeto.lastname}}</h3>
+
+        <hr>
+        <h1>Discurso con v-text: </h1>
+        <div v-text="discurso"></div>
+        <hr>
+        <h1>Discurso con v-html: </h1>
+        <div v-html="discurso"></div>
+
+        <hr>
+        <h2>Usando directiva v-show</h2>
+        <p v-show="verdadero">Texto que se puede ver...</p>
+        <p v-show="year >= 2020">El año actual es valido... {{year}}</p>
+        <p v-show="mensaje.length >= 34">La cantidad de caracteres es: {{mensaje.length}}</p>
+        <h1>Discurso con v-html: </h1>
+        <div v-show="verdadero" v-html="discurso"></div>
+
+        <hr>
+        <h2>Usando directiva v-if</h2>
+        <div v-if="year >= 2020">
+            <p>Se mostró el mensaje porque la condición fue verdadera dentro del v-if</p>
+        </div>
+        <div v-else>
+            <p>Este mensaje se muestra sólo cuando el v-if es falso o no se cumple su condición</p>
+        </div>
+
+        <hr>
+        <h2>Usando directiva v-if</h2>
+        <div v-if="year >= 2022">
+            <p>Se mostró el mensaje porque la condición fue verdadera dentro del v-if</p>
+        </div>
+        <div v-else-if="verdadero">
+            <p>Este mensaje se muestra sólo cuando el v-if es falso o no se cumple su condición y pasa el v-else-if</p>
+        </div>
+        <div v-else>
+            <p>Este mensaje se muestra sólo cuando el v-if es falso o no se cumple su condición</p>
+        </div>
+
+        <h2>Titulo de la data datosParticipantes</h2>
+        <p>Participante 1: nombre apllido</p>
+        <p>Participante 2: nombre apllido</p>
+        <p>Participante 3: nombre apllido</p>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        
+        const primerVueJS = new Vue({
+            el: "#app",
+            data: {
+                mensaje: "Mi primer programa utilizando VueJS",
+                year: 2020,
+                verdadero: true,
+                arreglo: [1,32,4,6],
+                objeto: {
+                    name: "Juan",
+                    lastname: "Duran"
+                },
+                discurso: '<p>Lorem ipsum dolor sit amet <strong>consectetur adipisicing elit</strong>. Ipsam libero vero a maiores asperiores, velit aperiam molestias eligendi voluptatum error omnis. <em>Excepturi cum id labore pariatur fuga eos culpa. Animi!</em></p>',
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Usando VueJS</title>
+</head>
+<body>
+    <h1>Implementando VueJS con CDN</h1>
+    <div id="app">
+        <h2 v-text="datosParticipantes"></h2>
+        <ul>
+            <li>Participante 1: {{datosGenerales1.name}} {{datosGenerales1.lastname}}</li>
+            <li>Participante 2: <span v-text="datosGenerales2.name"></span> <span v-text="datosGenerales2.lastname"></span></li>
+            <li>Participante 3: {{datosGenerales3.name}} {{datosGenerales3.lastname}}</li>
+        </ul>
+
+        <hr>
+        <tabla-componente></tabla-componente>
+
+        <hr>
+        <texto-component></texto-component>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
