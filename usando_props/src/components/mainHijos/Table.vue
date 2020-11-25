@@ -7,6 +7,7 @@
                     <th>Name</th>
                     <th>LastName</th>
                     <th>Address</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,6 +16,7 @@
                     <td>{{item.name}}</td>
                     <td>{{item.lastname}}</td>
                     <td>{{item.address}}</td>
+                    <td><button type="button" class="btn btn-primary" @click="eliminando(index)">Eliminar</button></td>
                 </tr>
             </tbody>
         </table>
@@ -34,7 +36,12 @@ export default {
                 ]
             } 
         }
-    }
+    },
+    methods: {
+        eliminando(index){
+            this.$emit('eliminarUsuer',index);
+        }
+    },
 }
 </script>
 

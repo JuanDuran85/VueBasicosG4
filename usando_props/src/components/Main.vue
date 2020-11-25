@@ -6,7 +6,7 @@
             <h2>{{mensajeT}}</h2>
             <p v-text="parrafoProps"></p>
         </section>
-        <Table :dataUsers="usuarios"/>
+        <Table :dataUsers="usuarios" @eliminarUsuer="borrarUsuario"/>
     </main>
 </template>
 
@@ -33,7 +33,13 @@ export default {
     props: ['mensajeT','parrafoProps'],
     components: {
         Table
-    }
+    },
+    methods: {
+        borrarUsuario(index){
+            console.log(index);
+            this.usuarios.splice(index,1);
+        }
+    },
 }
 </script>
 

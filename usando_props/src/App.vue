@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <Main :mensajeT="titulo" :parrafoProps="parrafo"/>
-    <Footer/>
+    <Footer @saludosPadre="reciboEvento"/>
   </div>
 </template>
 
@@ -23,7 +23,13 @@ export default {
     NavBar,
     Main,
     Footer
-  }
+  },
+  methods: {
+    reciboEvento(valor){
+      console.log(valor);
+      alert(`Nombre: ${valor.name}, Apellido: ${valor.lastname}`);
+    }
+  },
 }
 </script>
 
