@@ -1,10 +1,12 @@
 <template>
     <div>
+        <!-- se agrega el componente hijo, se envia la informacion mediante props y se reciben los eventos con informacion mediante v-on o @ -->
         <Card :infoUsers="users" @eliminarUser="deleteUser" @agregandoUsuario="agregarUsuario"/>
     </div>
 </template>
 
 <script>
+/* se importan los componentes y librerias a usuar */
 import Card from './mainHijos/Card.vue';
 import Swal from 'sweetalert2';
 
@@ -137,12 +139,17 @@ export default {
         }
     },
     components: {
+        /* se llama al componente hijo */
         Card
     },
     methods: {
+        /* los metodos se activan cuando ocurre un evento en el hijo y los envia mediante el emit */
+
+        /* metodo para borrar la informacion de un usuario en especifico */
         deleteUser(index){
             this.users.splice(index,1);
         },
+        /* metodo para agregar un usuario a la data */
         agregarUsuario(data){
             this.users.push(data);
             Swal.fire({
