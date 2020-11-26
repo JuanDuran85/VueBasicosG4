@@ -76,27 +76,27 @@
                     <div class="modal-body">
                         <div class="form-group">
                         <label for="nombre">Nombre y Apellido</label>
-                        <input type="text" class="form-control" v-model="name">
+                        <input type="text" class="form-control" v-model="name2">
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre de Usuario</label>
-                        <input type="text" class="form-control" v-model="username">
+                        <input type="text" class="form-control" v-model="username2">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Telefono</label>
-                        <input type="text" class="form-control" v-model="phone">
+                        <input type="text" class="form-control" v-model="phone2">
                     </div>
                     <div class="form-group">
                         <label for="Direccion">Direccion</label>
-                        <input type="text" class="form-control" v-model="address">
+                        <input type="text" class="form-control" v-model="address2">
                     </div>
                     <div class="form-group">
                         <label for="company">Nombre de la empresa</label>
-                        <input type="text" class="form-control" v-model="company">
+                        <input type="text" class="form-control" v-model="company2">
                     </div>
                     <div class="form-group">
                         <label for="frase">Frase Tipica</label>
-                        <input type="text" class="form-control" v-model="catchPhrase">
+                        <input type="text" class="form-control" v-model="catchPhrase2">
                     </div>
                 </div>
                 <div class="modal-footer">
