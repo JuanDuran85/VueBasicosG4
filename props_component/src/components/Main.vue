@@ -6,6 +6,7 @@
 
 <script>
 import Card from './mainHijos/Card.vue';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'Main',
@@ -143,8 +144,14 @@ export default {
             this.users.splice(index,1);
         },
         agregarUsuario(data){
-            console.log(data);
             this.users.push(data);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Usuario agregado con éxito',
+                showConfirmButton: false,
+                timer: 2000
+            })
         }
     },
 }

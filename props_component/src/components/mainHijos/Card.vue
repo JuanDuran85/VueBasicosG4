@@ -56,6 +56,8 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
+
 export default {
     name: 'Card',
     data() {
@@ -82,7 +84,27 @@ export default {
     },
     methods: {
         eliminando(index){
-            this.$emit('eliminarUser',index);
+            Swal.fire({
+                title: '¿Estas seguro que deseas eliminar al usuario?',
+                text: "no se puede revertir el procedimiento",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Borra eso'
+            }).then((result) => {
+                console.log(result);
+                if (result.isConfirmed) {
+                    this.$emit('eliminarUser',index);
+                    setTimeout(()=>{
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    },1000);
+                }
+            })
         },
         mostrarFormulario(){
             this.muestra = true;
@@ -115,7 +137,12 @@ export default {
                 this.$emit('agregandoUsuario',datoUser);
                 this.muestra = false;
             } else {
-                console.log("no se puede");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se puede registrar usuarios sin datos!',
+                    footer: 'Intente nuevamente'
+                });
             }
         },
     },
