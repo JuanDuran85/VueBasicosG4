@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- se agrega el componente hijo, se envia la informacion mediante props y se reciben los eventos con informacion mediante v-on o @ -->
-        <Card :infoUsers="users" @eliminarUser="deleteUser" @agregandoUsuario="agregarUsuario"/>
+        <Card :infoUsers="users" @eliminarUser="deleteUser" @agregandoUsuario="agregarUsuario" @actualizarUsuario="updateUser"/>
     </div>
 </template>
 
@@ -160,40 +160,50 @@ export default {
                 showConfirmButton: false,
                 timer: 2000
             })
+        },
+        updateUser(data){
+            let resultado = this.users.find(res => res.id == data.id);
+            resultado.name = data.name;
+            resultado.username = data.username;
+            resultado.image = data.image;
+            resultado.address.street = data.address.street;
+            resultado.company.name = data.company.name;
+            resultado.company.catchPhrase = data.company.catchPhrase;
+            resultado.phone = data.phone;
         }
     },
-      beforeCreate() {
+    beforeCreate() {
     console.log("Dentro del beforeCreate Main");
     console.log(this.mensaje);
-  },
-  created() {
-    console.log("Dentro del Created Main");
-    console.log(this.mensaje);
-  },
-  beforeMount() {
-    console.log("Dentro del beforeMount Main");
-    console.log(this.mensaje);
-  },
-  mounted() {
-    console.log("Dentro del Mounted Main");
-    console.log(this.mensaje);
-  },
-  beforeUpdate() {
-    console.log("Dentro del beforeUpdate Main");
-    console.log(this.mensaje);
-  },
-  updated() {
-    console.log("Dentro del Updated Main");
-    console.log(this.mensaje);
-  },
-  beforeDestroy() {
-    console.log("Dentro del beforeDestroy Main");
-    console.log(this.mensaje);    
-  },
-  destroyed() {
-    console.log("Dentro del Destroyed Main");
-    console.log(this.mensaje);
-  },
+    },
+    created() {
+        console.log("Dentro del Created Main");
+        console.log(this.mensaje);
+    },
+    beforeMount() {
+        console.log("Dentro del beforeMount Main");
+        console.log(this.mensaje);
+    },
+    mounted() {
+        console.log("Dentro del Mounted Main");
+        console.log(this.mensaje);
+    },
+    beforeUpdate() {
+        console.log("Dentro del beforeUpdate Main");
+        console.log(this.mensaje);
+    },
+    updated() {
+        console.log("Dentro del Updated Main");
+        console.log(this.mensaje);
+    },
+    beforeDestroy() {
+        console.log("Dentro del beforeDestroy Main");
+        console.log(this.mensaje);    
+    },
+    destroyed() {
+        console.log("Dentro del Destroyed Main");
+        console.log(this.mensaje);
+    },
 }
 </script>
 

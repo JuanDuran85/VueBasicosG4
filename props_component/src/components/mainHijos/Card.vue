@@ -77,32 +77,32 @@
                     <div class="modal-body">
                         <div class="form-group">
                         <label for="nombre">Nombre y Apellido</label>
-                        <input type="text" class="form-control" v-model="name2">
+                        <input type="text" class="form-control" :placeholder="item.name" v-model="name2">
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre de Usuario</label>
-                        <input type="text" class="form-control" v-model="username2">
+                        <input type="text" class="form-control" :placeholder="item.username" v-model="username2">
                     </div>
                     <div class="form-group">
                         <label for="telefono">Telefono</label>
-                        <input type="text" class="form-control" v-model="phone2">
+                        <input type="text" class="form-control" :placeholder="item.phone" v-model="phone2">
                     </div>
                     <div class="form-group">
                         <label for="Direccion">Direccion</label>
-                        <input type="text" class="form-control" v-model="address2">
+                        <input type="text" class="form-control" :placeholder="item.address.street" v-model="address2">
                     </div>
                     <div class="form-group">
                         <label for="company">Nombre de la empresa</label>
-                        <input type="text" class="form-control" v-model="company2">
+                        <input type="text" class="form-control" :placeholder="item.company.name" v-model="company2">
                     </div>
                     <div class="form-group">
                         <label for="frase">Frase Tipica</label>
-                        <input type="text" class="form-control" v-model="catchPhrase2">
+                        <input type="text" class="form-control" :placeholder="item.company.catchPhrase" v-model="catchPhrase2">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" @click="actualizarUser(item.id)">Guardar</button>
                 </div>
                 </div>
             </div>
@@ -223,39 +223,74 @@ export default {
                 });
             }
         },
+        actualizarUser(id){
+            if (this.name2 && this.address2 && this.phone2 && this.company2 && this.catchPhrase2 && this.username2) {
+                /* se crea el objeto con toda la data del usuario nuevo */
+                let datoUser = {
+                    id: id,
+                    name: this.name2,
+                    image: "http://lorempixel.com/640/480/people",
+                    username: this.username2,
+                    address: {
+                        street: this.address2
+                    },
+                    phone: this.phone2,
+                    company: {
+                        name: this.company2,
+                        catchPhrase: this.catchPhrase2,
+                    },
+                };
+                /* se limpian los campos del formulario de agregar usuario */
+                this.name2 = '';
+                this.address2 = '';
+                this.phone2 = '';
+                this.company2 = '';
+                this.catchPhrase2 = '';
+                this.username2 = '';
+                /* se envia al padre el evento personalizado para agregar usuario con los datos guardados */
+                this.$emit('actualizarUsuario',datoUser);
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No se puede actualizar el usuario sin datos!',
+                    footer: 'Intente nuevamente'
+                });
+            }
+        }
     },
     beforeCreate() {
     console.log("Dentro del beforeCreate Card");
     console.log(this.mensaje);
-  },
-  created() {
-    console.log("Dentro del Created Card");
-    console.log(this.mensaje);
-  },
-  beforeMount() {
-    console.log("Dentro del beforeMount Card");
-    console.log(this.mensaje);
-  },
-  mounted() {
-    console.log("Dentro del Mounted Card");
-    console.log(this.mensaje);
-  },
-  beforeUpdate() {
-    console.log("Dentro del beforeUpdate Card");
-    console.log(this.mensaje);
-  },
-  updated() {
-    console.log("Dentro del Updated Card");
-    console.log(this.mensaje);
-  },
-  beforeDestroy() {
-    console.log("Dentro del beforeDestroy Card");
-    console.log(this.mensaje);    
-  },
-  destroyed() {
-    console.log("Dentro del Destroyed Card");
-    console.log(this.mensaje);
-  },
+    },
+    created() {
+        console.log("Dentro del Created Card");
+        console.log(this.mensaje);
+    },
+    beforeMount() {
+        console.log("Dentro del beforeMount Card");
+        console.log(this.mensaje);
+    },
+    mounted() {
+        console.log("Dentro del Mounted Card");
+        console.log(this.mensaje);
+    },
+    beforeUpdate() {
+        console.log("Dentro del beforeUpdate Card");
+        console.log(this.mensaje);
+    },
+    updated() {
+        console.log("Dentro del Updated Card");
+        console.log(this.mensaje);
+    },
+    beforeDestroy() {
+        console.log("Dentro del beforeDestroy Card");
+        console.log(this.mensaje);    
+    },
+    destroyed() {
+        console.log("Dentro del Destroyed Card");
+        console.log(this.mensaje);
+    },
 }
 </script>
 
