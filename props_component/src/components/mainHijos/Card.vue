@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <h1 class="my-4 text-center">Información de Usuarios. <a class="btn btn-info card-link" @click="mostrarFormulario">Agregar Usuario</a></h1> 
+
         <!-- Mostrando tarjetas -->
         <div class="row" v-if="!muestra">
             <!-- se hace vfor para cada columna con su tarjeta -->
@@ -117,6 +118,7 @@ export default {
     name: 'Card',
     data() {
         return {
+            mensaje: "en el componente hijo Card",
             /* mostrar o ocultar tarjetas y fomulario de agregar */
             muestra: false,
             /* ------------------------------ */
@@ -222,6 +224,38 @@ export default {
             }
         },
     },
+    beforeCreate() {
+    console.log("Dentro del beforeCreate Card");
+    console.log(this.mensaje);
+  },
+  created() {
+    console.log("Dentro del Created Card");
+    console.log(this.mensaje);
+  },
+  beforeMount() {
+    console.log("Dentro del beforeMount Card");
+    console.log(this.mensaje);
+  },
+  mounted() {
+    console.log("Dentro del Mounted Card");
+    console.log(this.mensaje);
+  },
+  beforeUpdate() {
+    console.log("Dentro del beforeUpdate Card");
+    console.log(this.mensaje);
+  },
+  updated() {
+    console.log("Dentro del Updated Card");
+    console.log(this.mensaje);
+  },
+  beforeDestroy() {
+    console.log("Dentro del beforeDestroy Card");
+    console.log(this.mensaje);    
+  },
+  destroyed() {
+    console.log("Dentro del Destroyed Card");
+    console.log(this.mensaje);
+  },
 }
 </script>
 

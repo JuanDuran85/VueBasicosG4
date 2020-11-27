@@ -14,6 +14,7 @@ export default {
     name: 'Main',
     data() {
         return {
+            mensaje: "Mensaje desde el componente Main",
             users: [
                 {   
                     id: 1,
@@ -161,6 +162,38 @@ export default {
             })
         }
     },
+      beforeCreate() {
+    console.log("Dentro del beforeCreate Main");
+    console.log(this.mensaje);
+  },
+  created() {
+    console.log("Dentro del Created Main");
+    console.log(this.mensaje);
+  },
+  beforeMount() {
+    console.log("Dentro del beforeMount Main");
+    console.log(this.mensaje);
+  },
+  mounted() {
+    console.log("Dentro del Mounted Main");
+    console.log(this.mensaje);
+  },
+  beforeUpdate() {
+    console.log("Dentro del beforeUpdate Main");
+    console.log(this.mensaje);
+  },
+  updated() {
+    console.log("Dentro del Updated Main");
+    console.log(this.mensaje);
+  },
+  beforeDestroy() {
+    console.log("Dentro del beforeDestroy Main");
+    console.log(this.mensaje);    
+  },
+  destroyed() {
+    console.log("Dentro del Destroyed Main");
+    console.log(this.mensaje);
+  },
 }
 </script>
 

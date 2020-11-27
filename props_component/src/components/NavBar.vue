@@ -26,6 +26,43 @@
 <script>
 export default {
   name: 'NavBar',
+  data() {
+    return {
+      mensaje: "Ejemplo de mensaje desde la data del NavBar"
+    }
+  },
+  beforeCreate() {
+    console.log("Dentro del beforeCreate NavBar");
+    console.log(this.mensaje);
+  },
+  created() {
+    console.log("Dentro del Created NavBar");
+    console.log(this.mensaje);
+  },
+  beforeMount() {
+    console.log("Dentro del beforeMount NavBar");
+    console.log(this.mensaje);
+  },
+  mounted() {
+    console.log("Dentro del Mounted NavBar");
+    console.log(this.mensaje);
+  },
+  beforeUpdate() {
+    console.log("Dentro del beforeUpdate NavBar");
+    console.log(this.mensaje);
+  },
+  updated() {
+    console.log("Dentro del Updated NavBar");
+    console.log(this.mensaje);
+  },
+  beforeDestroy() {
+    console.log("Dentro del beforeDestroy NavBar");
+    console.log(this.mensaje);    
+  },
+  destroyed() {
+    console.log("Dentro del Destroyed NavBar");
+    console.log(this.mensaje);
+  },
 }
 </script>
 
