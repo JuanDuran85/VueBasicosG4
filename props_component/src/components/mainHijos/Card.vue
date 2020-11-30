@@ -6,7 +6,7 @@
         <div class="row" v-if="!muestra">
             <!-- se hace vfor para cada columna con su tarjeta -->
             <div class="my-4 col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4" v-for="(item, index) in infoUsers" :key="index" v>
-                <div class="card">
+                <div class="card" :style="estiloLinea" :class="{activado: item.activo, desactivado: !item.activo}">
                     <img :src="item.image" class="card-img-top" :alt="item.id">
                     <div class="card-body">
                         <h5 class="card-title" v-text="item.name"></h5>
@@ -22,13 +22,15 @@
                         <a class="btn btn-info card-link" data-toggle="modal" :data-target="`#usuario-${item.id}`">Editar Usuario</a>
                         <!-- boton para eliminar usuario -->
                         <a class="btn btn-danger card-link" @click="eliminando(index)">Eliminar</a>
+                        <!-- boton para activar usuario -->
+                        <a class="btn btn-primary card-link" @click="activarUsuer(index)">{{item.activo ? 'Desactivar' : 'Activar'}}</a>
                     </div>
                 </div>
             </div>     
         </div>
 
         <!-- Agregando Usuarios con formulario -->
-        <div v-else class="mt-5">
+        <div v-else class="mt-5" :style="{color: colorFormulario, fontSize: fuente}">
             <h2 class="my-3 text-center">Agregando nuevo usuario</h2>
             <form class="border border-dark" @submit.prevent="agregarUser">
                 <div class="form-group">
@@ -65,11 +67,11 @@
         <!-- Editando informacion de cada usuarios con ventanas modales -->
         <div >
             <!-- se crea cada Modal de forma dinamica con vfor y un id distinto mediante el id de cada usuario-->
-            <div class="modal fade" :id="`usuario-${item.id}`" tabindex="-1" :aria-labelledby="`exampleModalLabel-${item.id}`" aria-hidden="true" v-for="(item,index) in infoUsers" :key="index">
+            <div class="modal fade" :id="`usuario-${item.id}`" tabindex="-1" :aria-labelledby="`exampleModalLabel-${item.id}`" aria-hidden="true" v-for="(item,index) in infoUsers" :key="index" :class="[item.activo ? 'modal1': 'modal2']">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="`exampleModalLabel-${item.id}`">Editando al usuario: {{item.name}}</h5>
+                        <h5 class="modal-title" id="`exampleModalLabel-${item.id}`" :style="[item.activo ? estiloLinea : coloresTexto]">Editando al usuario: {{item.name}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -118,6 +120,15 @@ export default {
     name: 'Card',
     data() {
         return {
+            colorFormulario: 'red',
+            coloresTexto: {
+                color: 'red'
+            },   
+            fuente: '20px',
+            estiloLinea: {
+                fontSize: '12px',
+                'font-weight' : '400'
+            },
             mensaje: "en el componente hijo Card",
             /* mostrar o ocultar tarjetas y fomulario de agregar */
             muestra: false,
@@ -257,6 +268,9 @@ export default {
                     footer: 'Intente nuevamente'
                 });
             }
+        },
+        activarUsuer(index){
+            this.$emit('toggleUsuario',index)
         }
     },
     beforeCreate() {
@@ -294,6 +308,25 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+ .activado{
+    border: 2px solid black;
+    background-color: #7598bb;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+ }
+ .desactivado{
+    border: 2px solid rgb(255, 0, 0);
+    background-color: #90d463;
+    font-weight: 200;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+ }
+ .modal1{
+     background-color: #567678;
+ }
+ .modal2{
+     background-color: #786356;
+ }
 </style>

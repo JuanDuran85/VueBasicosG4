@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- se agrega el componente hijo, se envia la informacion mediante props y se reciben los eventos con informacion mediante v-on o @ -->
-        <Card :infoUsers="users" @eliminarUser="deleteUser" @agregandoUsuario="agregarUsuario" @actualizarUsuario="updateUser"/>
+        <Card :infoUsers="users" @eliminarUser="deleteUser" @agregandoUsuario="agregarUsuario" @actualizarUsuario="updateUser" @toggleUsuario="usuarToggle"/>
     </div>
 </template>
 
@@ -34,7 +34,8 @@ export default {
                         name: "Romaguera-Crona",
                         catchPhrase: "Multi-layered client-server neural-net",                    
                         bs: "harness real-time e-markets"
-                    }
+                    },
+                    activo: false
                 },
                 {
                     id: 2,
@@ -54,7 +55,8 @@ export default {
                         name: "Deckow-Crist",
                         catchPhrase: "Proactive didactic contingency",
                         bs: "synergize scalable supply-chains"
-                    }
+                    },
+                    activo: true
                 },
                 {
                     id: 3,
@@ -74,7 +76,8 @@ export default {
                         name: "Romaguera-Jacobson",
                         catchPhrase: "Face to face bifurcated interface",
                         bs: "e-enable strategic applications"
-                    }
+                    },
+                    activo: false
                 },
                 {
                     id: 4,
@@ -94,7 +97,8 @@ export default {
                         name: "Robel-Corkery",
                         catchPhrase: "Multi-tiered zero tolerance productivity",
                         bs: "transition cutting-edge web services"
-                    }
+                    },
+                    activo: false
                 },
                 {
                     id: 5,
@@ -114,7 +118,8 @@ export default {
                         name: "Keebler LLC",
                         catchPhrase: "User-centric fault-tolerant solution",
                         bs: "revolutionize end-to-end systems"
-                    }
+                    },
+                    activo: true
                 },
                 {
                     id: 6,
@@ -134,7 +139,8 @@ export default {
                         name: "Considine-Lockman",
                         catchPhrase: "Synchronised bottom-line interface",
                         bs: "e-enable innovative applications"
-                    }
+                    },
+                    activo: false
                 },
             ]
         }
@@ -170,6 +176,9 @@ export default {
             resultado.company.name = data.company.name;
             resultado.company.catchPhrase = data.company.catchPhrase;
             resultado.phone = data.phone;
+        },
+        usuarToggle(index){
+            this.users[index].activo = !this.users[index].activo;
         }
     },
     beforeCreate() {
