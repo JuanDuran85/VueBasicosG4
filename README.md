@@ -10,4 +10,3 @@
 6. Ejemplo 6 (props_component): ejercicio para utilizar props y eventos personalizados entre padres e hijos. Se utiliza la creacion, lectura, modificion y eliminacion de datos localmente. 
 7. Ejemplo 7 (randomuser): ejercicio implementando conexion a API en hook y clases dinamicas.
 8. Ejemplo 8 (random_cat): implementando async await para conexion con API y style con vbind.
-
