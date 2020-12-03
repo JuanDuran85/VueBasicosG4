@@ -13,9 +13,6 @@
           <router-link class="nav-link" :to="{name: 'Estudios'}">Estudios</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'Contacto'}">Contacto</router-link>
-        </li>
-        <li class="nav-item">
           <router-link class="nav-link" :to="{name: 'Proyectos'}">Proyectos</router-link>
         </li>
         <li class="nav-item">

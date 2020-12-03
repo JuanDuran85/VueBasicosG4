@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2>Contaco</h2>
+        <h2>Contaco: {{idContacto}}</h2>
         <div>
             <form>
                 <div class="form-group">
@@ -19,12 +19,16 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
+        <div class="text-center mt-5">
+            <button type="button" class="btn btn-primary" @click="$router.go(-1)">Regresar</button>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Contacto'
+        name: 'Contacto',
+        props: ['idContacto']
     }
 </script>
 

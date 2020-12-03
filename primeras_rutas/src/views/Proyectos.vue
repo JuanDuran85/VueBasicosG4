@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <h2>Proyectos realizados</h2>
+        <p>Id del proyecto: {{idProyecto}}</p>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -27,7 +28,8 @@
 
 <script>
     export default {
-        name: 'Proyectos'
+        name: 'Proyectos',
+        props: ['idProyecto']
     }
 </script>
 
