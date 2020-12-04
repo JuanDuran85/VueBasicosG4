@@ -7,14 +7,41 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     contador: 0,
-    pais: []
+    pais: [],
+    usuarios: [
+      {nombre: 'Lyda', apellido: 'Reynolds', edad: 64},
+      {nombre: 'Monty', apellido: 'Bartell', edad: 11},
+      {nombre: 'Alessia', apellido: 'Gutkowski', edad: 59},
+      {nombre: 'Aric', apellido: 'Bayer', edad: 54},
+      {nombre: 'Sienna', apellido: 'Gleason', edad: 14},
+      {nombre: 'Furman', apellido: 'Wyman', edad: 81},
+      {nombre: 'Raven', apellido: 'Kessler', edad: 22},
+      {nombre: 'Chester', apellido: 'Glover', edad: 12},
+    ]
   },
   getters: {
+    enviarEdades(state,getters){
+      return getters.enviarUsuarios.map(result => result.edad);
+    },
+    eviarSumaEdades(state,getters){
+      return getters.enviarEdades.reduce((acumulador,valor)=>{
+        return acumulador+valor;
+      },0)
+    },
+    eviarPromedioEdades(state,getters){
+      return (getters.eviarSumaEdades / getters.enviarEdades.length);
+    },
+    enviarUsuarios(state){
+      return state.usuarios
+    },
     enviandoContador(state){
       return state.contador;
     },
     enviarInfoPais(state){
       return state.pais;
+    },
+    enviarMayorEdad(state,getters){
+      return getters.enviarUsuarios.filter(result => result.edad >= 18)
     },
 /*     eviarContadorMayorCinco(state){
       if (state.contador > 5) {
