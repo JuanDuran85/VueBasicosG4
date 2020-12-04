@@ -7621,6 +7621,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2@^10.11.1:
+  version "10.11.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.11.1.tgz#ba2c2d166bc4b5472773cc8ef7273d75d0f2ff91"
+  integrity sha512-fcl5myOmkITOstRdBmviYEUgfy6CWQFKyMMDLeLtljML6QnjmYh7kfmEVcuFGmemvalrMzuy8NFhPvEKYpQZuw==
+
 table@^5.2.3:
   version "5.4.6"
   resolved "https://registry.npm.taobao.org/table/download/table-5.4.6.tgz?cache=0&sync_timestamp=1605825218994&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftable%2Fdownload%2Ftable-5.4.6.tgz#1292d19500ce3f86053b05f0e8e7e4a3bb21079e"
