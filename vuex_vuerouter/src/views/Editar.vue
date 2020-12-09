@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2 class="mt-5">Editando el Producto: </h2>
+        <h2 class="mt-5">Editando el Producto: {{nombre}}</h2>
         <form @submit.prevent="guardarEditar">
             <div class="mb-3">
                 <label for="id" class="form-label">Id</label>
@@ -69,9 +69,9 @@ export default {
             this.idJuego = item.id;
         }else {
             Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Your work has been saved',
+                position: 'center',
+                icon: 'error',
+                title: 'The product dosent exist',
                 showConfirmButton: false,
                 timer: 2000
             }).then(()=>{
@@ -81,25 +81,35 @@ export default {
     },
     methods: {
         guardarEditar(){
-            let juego = {
-                codigo : this.codigo,
-                nombre : this.nombre,
-                stock : this.stock,
-                precio : this.precio,
-                color : this.color,
-                destacado : this.destacado,
-                id: this.idJuego
+            if (this.stock >= 0 && this.color && this.nombre.length >= 2 && this.codigo && this.precio >= 0) {
+                let juego = {
+                    codigo : this.codigo,
+                    nombre : this.nombre,
+                    stock : this.stock,
+                    precio : this.precio,
+                    color : this.color,
+                    destacado : this.destacado,
+                    id: this.idJuego
+                };
+                this.$store.dispatch('guardarJuego',juego);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 2000
+                }).then(()=>{
+                    this.$router.push({name: 'Busquedas'});
+                })
+            } else {
+                Swal.fire({
+                    position: 'top-left',
+                    icon: 'error',
+                    title: 'You have an error in the form',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
             }
-            this.$store.dispatch('guardarJuego',juego);
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 2000
-            }).then(()=>{
-                this.$router.push({name: 'Busquedas'});
-            })
         }
     },
 }

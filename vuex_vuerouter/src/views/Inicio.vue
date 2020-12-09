@@ -12,12 +12,6 @@ export default {
   name: 'Inicio',
   computed: {
     ...mapGetters(['enivandoTitulo','enivandoSubTitulo'])
-/*     titulo(){
-      return this.$store.getters.enivandoTitulo;
-    },
-    subTitulo(){
-      return this.$store.getters.enivandoSubTitulo;
-    } */
   }
 }
 </script>

@@ -18,9 +18,9 @@
                         <th>Nombre</th>
                         <th>Stock</th>
                         <th>Precio</th>
-                        <th>Vender</th>
                         <th>Editar</th>
                         <th>Borrar</th>
+                        <th>Activo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,12 +29,60 @@
                         <td>{{item.nombre}}</td>
                         <td>{{item.stock}}</td>
                         <td>{{item.precio}}</td>
-                        <td><button type="button" class="btn btn-secondary">Vender</button></td>
                         <td><button type="button" class="btn btn-light" @click="editando(item)">Editar</button></td>
                         <td><button type="button" class="btn btn-danger" @click="borrandoProducto(index)">Borrar</button></td>
+                        <td><button type="button" class="btn" :class="[item.destacado ? 'btn-success' : 'btn-warning']" @click="destacadoUpdate(index)">{{item.destacado ? 'Si' : 'No'}}</button></td>
                     </tr>
                 </tbody>
-                </table>
+            </table>
+            <div class="mt-5">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Agregar Juego</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Agregando Juego</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label for="codigo" class="form-label">Código</label>
+                                        <input type="text" class="form-control" v-model="codigo">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="nombre" class="form-label">Nombre</label>
+                                        <input type="text" class="form-control" v-model="nombre">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="stock" class="form-label">Stock</label>
+                                        <input type="text" class="form-control" v-model="stock">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="precio" class="form-label">Precio</label>
+                                        <input type="text" class="form-control" v-model="precio">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="color" class="form-label">Color</label>
+                                        <input type="color" class="form-control" v-model="color">
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" v-model="destacado">
+                                        <label class="form-check-label" for="exampleCheck1">Check me</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal" @click.prevent="guardarNuevo">Guardar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -47,21 +95,17 @@ export default {
     name: 'Busquedas',
     data() {
         return {
-            busqueda: ''
+            busqueda: '',
+            codigo: '',
+            nombre: '',
+            stock: 0,
+            precio: 0,
+            color: '',
+            destacado: false,
         }
     },
     computed: {
         ...mapGetters(['enviarListaJuegos','enviarJuegosTotales','enviarTotalStock']),
-        
-/*         traerListaJuegos(){
-            return this.$store.getters.enviarListaJuegos.filter(result => {
-                if (this.busqueda) {
-                    return result.codigo == this.busqueda
-                } else {
-                    return result.codigo;
-                }
-            });
-        } */
     },
     watch: {
         busqueda(vNuevo){
@@ -91,6 +135,37 @@ export default {
         },
         editando(item){
             this.$router.push({name: 'Editar', params: {idLista: item.id}});
+        },
+        destacadoUpdate(index){
+            this.$store.dispatch('actualizarDestacado',index);
+        },
+        guardarNuevo(){
+            if (this.stock >= 0 && this.color && this.nombre.length >= 2 && this.codigo && this.precio >= 0) {
+                let juego = {
+                    codigo : this.codigo,
+                    nombre : this.nombre,
+                    stock : this.stock,
+                    precio : this.precio,
+                    color : this.color,
+                    destacado : this.destacado,
+                }
+                this.$store.dispatch('guardarProducto',juego);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Perfect...',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'You have an error in the form',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            }
         }
     },
 }
