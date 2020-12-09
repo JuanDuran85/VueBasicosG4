@@ -30,7 +30,7 @@
                         <td>{{item.stock}}</td>
                         <td>{{item.precio}}</td>
                         <td><button type="button" class="btn btn-secondary">Vender</button></td>
-                        <td><button type="button" class="btn btn-light">Editar</button></td>
+                        <td><button type="button" class="btn btn-light" @click="editando(item)">Editar</button></td>
                         <td><button type="button" class="btn btn-danger" @click="borrandoProducto(index)">Borrar</button></td>
                     </tr>
                 </tbody>
@@ -88,6 +88,9 @@ export default {
                     )
                 }
             })
+        },
+        editando(item){
+            this.$router.push({name: 'Editar', params: {idLista: item.id}});
         }
     },
 }
