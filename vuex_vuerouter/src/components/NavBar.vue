@@ -11,13 +11,13 @@
                     <router-link class="nav-link" to="/">Inicio <span class="sr-only">(current)</span></router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/busquedas">Búsquedas</router-link>
+                    <router-link class="nav-link" :to="{name: 'Busquedas'}">Búsquedas</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/ventas">Ventas</router-link>
+                    <router-link class="nav-link" :to="{name: 'Ventas'}">Ventas</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link class="nav-link" to="/total">Total</router-link>
+                    <router-link class="nav-link" :to="{name: 'Total'}">Total</router-link>
                 </li>
             </ul>
         </div>
