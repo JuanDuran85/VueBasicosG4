@@ -34,12 +34,18 @@
                         <tr v-for="(item,index) in eviarBoleta" :key="index">
                             <td>{{index+1}}</td>
                             <td>{{item.nombre}}</td>
-                            <td>{{item.precio}}</td>
+                            <td>{{item.precio | formatoPrecio}} CLP</td>
                             <td>{{item.cantidad}}</td>
-                            <td><button type="button" class="btn btn-danger" >Eliminar</button></td>
+                            <td><button type="button" class="btn btn-danger" @click="eliminando(item)">Eliminar</button></td>
                             <td><button type="button" class="btn btn-warning" @click="restarProducto(item)">Restar</button></td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="3" class="text-right">Total Venta: {{eviarTotalBoleta | formatoPrecio}} CLP</th>
+                            <th>Total Productos: {{eviarCantidadVendida}}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <div v-else-if="!mostrar && enviarProductosVendidos <= 0">
@@ -48,11 +54,16 @@
                 </div>
             </div>
         </div>
+        <div class="my-5 text-center" v-if="mostrar && enviarProductosVendidos > 0">
+            <button type="button" class="btn btn-secondary btn-lg" @click="totalVenta">Totalizar</button>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Swal from 'sweetalert2';
+
 export default {
     name: 'TablaVentas',
     data() {
@@ -61,7 +72,7 @@ export default {
         }
     },
     computed: {
-        ...mapGetters(['eviarJuegoConStock', 'enviarProductosVendidos', 'eviarBoleta']),
+        ...mapGetters(['eviarJuegoConStock', 'enviarProductosVendidos', 'eviarBoleta', 'eviarTotalBoleta','eviarCantidadVendida']),
     },
     filters: {
         formatoPrecio(precio){
@@ -69,7 +80,27 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['venderProducto', 'restarProducto'])
+        ...mapActions(['venderProducto', 'restarProducto','eliminando']),
+        totalVenta(){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, buy it!'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Sold!',
+                        'Your products has been sold.',
+                        'success'
+                    );
+                    this.$store.dispatch('totalVentaProductos');
+                }
+            })
+        }
     },
 }
 </script>

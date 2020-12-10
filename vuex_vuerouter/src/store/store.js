@@ -17,7 +17,9 @@ export default new Vuex.Store({
     titulo: '32 bits',
     busqueda: null,
     productosVendidos: 0,
-    boleta: []
+    boleta: [],
+    ventasTotales: [],
+    idCompra: ''
   },
   getters: {
     enivandoTitulo(state){
@@ -54,6 +56,18 @@ export default new Vuex.Store({
     },
     eviarBoleta(state){
       return state.boleta
+    },
+    eviarTotalBoleta(state,getters){
+      let precios = getters.eviarBoleta.map(result => parseFloat(result.precio)*result.cantidad)
+      return precios.reduce((acumulado,inicial)=>{
+        return acumulado+inicial;
+      },0);
+    },
+    eviarCantidadVendida(state,getters){
+      let cantidad = getters.eviarBoleta.map(result => result.cantidad);
+      return cantidad.reduce((acumulado,inicial) => {
+        return acumulado+inicial;
+      },0)
     }
 
   },
@@ -93,6 +107,8 @@ export default new Vuex.Store({
       let resulBoleta = state.boleta.find(boleta => boleta.id == resultado.id)
       if (!resulBoleta) {
         state.boleta.push(resultado); 
+      }else{
+        resulBoleta.cantidad = resultado.cantidad;
       }
     },
     sumarStock(state,item){
@@ -101,9 +117,25 @@ export default new Vuex.Store({
       --resultado.cantidad;
       state.productosVendidos--;
       if (resultado.cantidad == 0) {
-        let resulBoleta = state.boleta.findIndex(boleta => boleta.id == resultado.id)
+        let resulBoleta = state.boleta.findIndex(boleta => boleta.id == resultado.id);
         state.boleta.splice(resulBoleta,1); 
+      }else{
+        let resulBoleta = state.boleta.find(boleta => boleta.id == resultado.id);
+        resulBoleta.cantidad = resultado.cantidad;
       }
+    },
+    borrarProducto(state,item){
+      let resultado = state.listaJuegos.find(result => result.id == item.id);
+      resultado.stock += resultado.cantidad;
+      state.productosVendidos -= resultado.cantidad;
+      resultado.cantidad = 0;
+      let producto = state.boleta.findIndex(result => result.id == item.id);
+      state.boleta.splice(producto,1);
+    },
+    total(state){
+      state.ventasTotales.push(state.boleta);
+      state.boleta = [];
+      state.productosVendidos = 0;
     }
   },
   actions: {
@@ -127,6 +159,14 @@ export default new Vuex.Store({
     },
     restarProducto({commit},item){
       commit('sumarStock',item);
+    },
+    totalVentaProductos({commit, state, getters}){
+      state.boleta.totalVenta = getters.eviarTotalBoleta;
+      state.boleta.cantidadTotal = getters.eviarCantidadVendida;
+      commit('total');
+    },
+    eliminando({commit},item){
+      commit('borrarProducto',item);
     }
   },
 })
