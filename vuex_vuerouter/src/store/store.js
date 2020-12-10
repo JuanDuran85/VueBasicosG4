@@ -37,7 +37,7 @@ export default new Vuex.Store({
     enviarListaJuegos(state){
       return state.listaJuegos.filter(result =>{
         if (state.busqueda) {
-          return result.codigo == state.busqueda
+          return result.codigo.includes(state.busqueda);
         } else {
           return result;
         }
@@ -68,6 +68,9 @@ export default new Vuex.Store({
       return cantidad.reduce((acumulado,inicial) => {
         return acumulado+inicial;
       },0)
+    },
+    enviandoTotalVenta(state){
+      return state.ventasTotales;
     }
 
   },
@@ -132,7 +135,8 @@ export default new Vuex.Store({
       let producto = state.boleta.findIndex(result => result.id == item.id);
       state.boleta.splice(producto,1);
     },
-    total(state){
+    total(state,data){
+      state.boleta.push(data);
       state.ventasTotales.push(state.boleta);
       state.boleta = [];
       state.productosVendidos = 0;
@@ -160,10 +164,8 @@ export default new Vuex.Store({
     restarProducto({commit},item){
       commit('sumarStock',item);
     },
-    totalVentaProductos({commit, state, getters}){
-      state.boleta.totalVenta = getters.eviarTotalBoleta;
-      state.boleta.cantidadTotal = getters.eviarCantidadVendida;
-      commit('total');
+    totalVentaProductos({commit},data){
+      commit('total',data);
     },
     eliminando({commit},item){
       commit('borrarProducto',item);

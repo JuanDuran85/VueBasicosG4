@@ -97,7 +97,11 @@ export default {
                         'Your products has been sold.',
                         'success'
                     );
-                    this.$store.dispatch('totalVentaProductos');
+                    let data = {
+                        totalBoleta: this.eviarTotalBoleta,
+                        cantidadVendida: this.eviarCantidadVendida
+                    };
+                    this.$store.dispatch('totalVentaProductos', data);
                 }
             })
         }
