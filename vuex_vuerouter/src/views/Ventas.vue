@@ -1,13 +1,18 @@
 <template>
-    <div>
-        <h2>Ventas</h2>
+    <div class="container">
+        <h2 class="text-center display-4 my-5">Ventas</h2>
+        <tabla-ventas></tabla-ventas>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'Ventas'
-    }
+import TablaVentas from '@/components/TablaVentas.vue'
+export default {
+    name: 'Ventas',
+    components: { 
+        TablaVentas 
+    },
+}
 </script>
 
 <style>

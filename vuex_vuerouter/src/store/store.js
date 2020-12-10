@@ -6,16 +6,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     listaJuegos: [
-      { id: 'XBDLI0600888132140W42350', codigo: "0001", nombre: "Sekiro", stock: "10", precio: "30000", color: "#ff0000", destacado: true },
-      { id: 'AUDCY532700371069019103F8544995', codigo: "0002", nombre: "Fifa 21", stock: "10", precio: "25000", color: "#0000ff", destacado: false },
-      { id: 'MKDAT027004446560600862', codigo: "0003", nombre: "Gear of War 4", stock: "10", precio: "15000", color: "#00ff00", destacado: true },
-      { id: 'KYDMT49HFVX050697094637713M3268472', codigo: "0004", nombre: "Mario Tennis Aces", stock: "10", precio: "35000", color: "#ffff00", destacado: false },
-      { id: 'BMDVG35179N3201470087060442', codigo: "0005", nombre: "Bloodborne", stock: "10", precio: "10000", color: "#0000ff", destacado: false },
-      { id: 'TNDEE073489002008960817', codigo: "0006", nombre: "Forza Horizon 4", stock: "10", precio: "20000", color: "#ff0000", destacado: true },
+      { id: 'XBDLI0600888132140W42350', codigo: "0001", nombre: "Sekiro", stock: "10", precio: "30000", color: "#ff0000", destacado: true, cantidad: 0 },
+      { id: 'AUDCY532700371069019103F8544995', codigo: "0002", nombre: "Fifa 21", stock: "10", precio: "25000", color: "#0000ff", destacado: false, cantidad: 0 },
+      { id: 'MKDAT027004446560600862', codigo: "0003", nombre: "Gear of War 4", stock: "10", precio: "15000", color: "#00ff00", destacado: true, cantidad: 0 },
+      { id: 'KYDMT49HFVX050697094637713M3268472', codigo: "0004", nombre: "Mario Tennis Aces", stock: "10", precio: "35000", color: "#ffff00", destacado: false, cantidad: 0 },
+      { id: 'BMDVG35179N3201470087060442', codigo: "0005", nombre: "Bloodborne", stock: "10", precio: "10000", color: "#0000ff", destacado: false, cantidad: 0 },
+      { id: 'TNDEE073489002008960817', codigo: "0006", nombre: "Forza Horizon 4", stock: "10", precio: "20000", color: "#ff0000", destacado: true, cantidad: 0 },
     ],
     subtitulo: 'Juegos de PC',
     titulo: '32 bits',
-    busqueda: null
+    busqueda: null,
+    productosVendidos: 0,
+    boleta: []
   },
   getters: {
     enivandoTitulo(state){
@@ -23,6 +25,12 @@ export default new Vuex.Store({
     },
     enivandoSubTitulo(state){
       return state.subtitulo;
+    },
+    eviarJuegoConStock(state){
+      return state.listaJuegos.filter(result => result.stock > 0);
+    },
+    enviarProductosVendidos(state){
+      return state.productosVendidos;
     },
     enviarListaJuegos(state){
       return state.listaJuegos.filter(result =>{
@@ -44,6 +52,9 @@ export default new Vuex.Store({
         return acumulado+total;
       },0);
     },
+    eviarBoleta(state){
+      return state.boleta
+    }
 
   },
   mutations: {
@@ -73,6 +84,26 @@ export default new Vuex.Store({
       let id = valor.join('');
       juego.id = id;
       state.listaJuegos.push(juego);
+    },
+    restarStock(state,item){
+      let resultado = state.listaJuegos.find(result => result.id == item.id);
+      resultado.stock--;
+      ++resultado.cantidad;
+      state.productosVendidos++;
+      let resulBoleta = state.boleta.find(boleta => boleta.id == resultado.id)
+      if (!resulBoleta) {
+        state.boleta.push(resultado); 
+      }
+    },
+    sumarStock(state,item){
+      let resultado = state.listaJuegos.find(result => result.id == item.id);
+      resultado.stock++;
+      --resultado.cantidad;
+      state.productosVendidos--;
+      if (resultado.cantidad == 0) {
+        let resulBoleta = state.boleta.findIndex(boleta => boleta.id == resultado.id)
+        state.boleta.splice(resulBoleta,1); 
+      }
     }
   },
   actions: {
@@ -90,6 +121,12 @@ export default new Vuex.Store({
     },
     guardarProducto({commit},juego){
       commit('mutandoJuegos',juego)
+    },
+    venderProducto({commit},item){
+      commit('restarStock',item);
+    },
+    restarProducto({commit},item){
+      commit('sumarStock',item);
     }
   },
 })
