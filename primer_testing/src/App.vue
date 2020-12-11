@@ -13,6 +13,9 @@ import NavBar from '@/components/NavBar.vue'
 export default {
   components: { NavBar },
   name: 'App',
+  created() {
+    this.$store.dispatch('llamadoAPI');
+  },
 }
 </script>
 

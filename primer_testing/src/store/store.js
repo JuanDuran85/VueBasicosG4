@@ -7,11 +7,25 @@ export default new Vuex.Store({
   state: {
     actividades: [
       {id: 1, task: 'Actividad numero 1', realizada: true}
-    ]
+    ],
+    datosApi: [],
+    favorito: []
   },
   getters: {
     enviarActividades(state){
       return state.actividades;
+    },
+    enviandoNumeroTarea(state){
+      return state.actividades.length;
+    },
+    enviarRealizados(state,getters){
+      return getters.enviarActividades.filter(result => result.realizada);
+    },
+    enviarDatosApi(state){
+      return state.datosApi;
+    },
+    enviarFavoritos(state){
+      return state.favorito;
     }
   },
   mutations: {
@@ -28,6 +42,17 @@ export default new Vuex.Store({
     },
     mutandoEstado(state,index){
       state.actividades[index].realizada = !state.actividades[index].realizada;
+    },
+    mutandoDatosApi(state,datos){
+      for (let index = 0; index < datos.length; index++) {
+          datos[index].favorito = false;
+      }
+      state.datosApi = datos;
+    },
+    mutandoFavoritos(state,valor){
+      let resultado = state.datosApi.find(result => result.id == valor.id);
+      resultado.favorito = true;
+      state.favorito.push(resultado)
     }
   },
   actions: {
@@ -39,6 +64,18 @@ export default new Vuex.Store({
     },
     modificarEstado({commit},index){
       commit('mutandoEstado',index)
+    },
+    async llamadoAPI({commit}){
+      try {
+        let result = await fetch('https://reqres.in/api/users?per_page=12')
+        let datos = await result.json();
+        commit('mutandoDatosApi',datos.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    agregandoFavoritos({commit},valor){
+      commit('mutandoFavoritos',valor)
     }
   }
 })

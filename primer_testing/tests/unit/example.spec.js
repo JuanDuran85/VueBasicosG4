@@ -18,8 +18,10 @@ describe('Prueba al componente AddTareas.vue', () => {
     expect(inputTarea.element.placeholder).toEqual("Agrega una actividad");
     expect(inputTarea.element.type).toEqual("text");
 
-    //console.log(wrapper.find('.input-group').element.firstChild);
-  expect(wrapper.find('.input-group').element.firstChild.outerHTML).toBe('<input type=\"text\" placeholder=\"Agrega una actividad\" aria-label=\"Agrega una actividad\" aria-describedby=\"button-addon2\" class=\"form-control\">');
+    let entrada = `<input type="text" placeholder="Agrega una actividad" aria-label="Agrega una actividad" aria-describedby="button-addon2" class="form-control">`;
+    expect(wrapper.find('.input-group').element.firstChild.outerHTML).toBe(entrada);
+
+/*   expect(wrapper.find('.input-group').element.firstChild.outerHTML).toBe('<input type=\"text\" placeholder=\"Agrega una actividad\" aria-label=\"Agrega una actividad\" aria-describedby=\"button-addon2\" class=\"form-control\">'); */
   });
 
   it('prueba N°2', () => {
@@ -44,5 +46,6 @@ describe('Prueba al componente AddTareas.vue', () => {
     inputEntrada.setValue("Nueva tarea numero 2");
     expect(wrapper.vm.$data.tarea).toBe("Nueva tarea numero 2");
     expect(wrapper.find('.btn').text().length).toBe(7);
-  })
+    expect(wrapper.element).toMatchSnapshot();
+  });
 })

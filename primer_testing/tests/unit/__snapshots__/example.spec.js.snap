@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Prueba al componente AddTareas.vue prueba N°3 1`] = `
+<div
+  class="container my-5"
+>
+  <h2
+    class="text-center my-4"
+  >
+    Agrega una Actividad por Realizar
+  </h2>
+   
+  <div
+    class="input-group mb-3"
+  >
+    <input
+      aria-describedby="button-addon2"
+      aria-label="Agrega una actividad"
+      class="form-control"
+      placeholder="Agrega una actividad"
+      type="text"
+    />
+     
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+    >
+      Agregar
+    </button>
+  </div>
+</div>
+`;

@@ -13,6 +13,9 @@
                 <li class="nav-item">
                     <router-link :to="{name: 'Tareas'}" class="nav-link">Tareas</router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link :to="{name: 'Favoritos'}" class="nav-link">Favoritos</router-link>
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
