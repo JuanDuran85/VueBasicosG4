@@ -1,5 +1,5 @@
 {
-  "name": "vuex_vuerouter",
+  "name": "primer_testing",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,6 +15,11 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-regular-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -28,7 +33,6 @@
     "eslint-plugin-vue": "^6.2.2",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
-    "sweetalert2": "^10.12.3",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -60,5 +64,8 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "preset": "@vue/cli-plugin-unit-jest"
+  }
 }
