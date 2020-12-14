@@ -82,16 +82,29 @@ export default new Vuex.Store({
       state.listaJuegos.splice(index,1);
     },
     mutandoLista(state,juego){
-      let item = state.listaJuegos.find(result => result.id == juego.id)
-      item.nombre = juego.nombre;
-      item.precio = juego.precio;
-      item.codigo = juego.codigo;
-      item.color = juego.color;
-      item.destacado = juego.destacado;
-      item.stock = juego.stock;
+      if (juego != undefined){
+        let item = state.listaJuegos.find(result => result.id == juego.id);
+        if (item != undefined){
+          item.nombre = juego.nombre;
+          item.precio = juego.precio;
+          item.codigo = juego.codigo;
+          item.color = juego.color;
+          item.destacado = juego.destacado;
+          item.stock = juego.stock;
+        } else {
+          console.log("No se puede actualizar el juego. no existe");
+        }
+      } else{
+        console.log("No se puede cargar el juego");
+      }
+
     },
     mutandoDestacado(state,index){
-      state.listaJuegos[index].destacado = !state.listaJuegos[index].destacado;
+      if (index != undefined && index >= 0 && index <= state.listaJuegos.length-1){
+        state.listaJuegos[index].destacado = !state.listaJuegos[index].destacado;
+      }else {
+        console.log("El juego no existe en la lista");
+      }
     },
     mutandoJuegos(state,juego){
       let valor = [];
