@@ -23,6 +23,7 @@ export default {
         this.$store.dispatch('user',null);
       }
     });
+    this.$store.dispatch('llamarAPI');
   },
 }
 </script>

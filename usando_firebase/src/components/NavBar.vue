@@ -18,7 +18,7 @@
                             <router-link class="nav-link" :to="{name: 'Registro'}">Registro</router-link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" :class="activandoSOut" href="#" tabindex="-1" :disabled="existeUser" @click="signOut">Sign Out</a>
+                            <a class="nav-link" :class="activandoSOut" href="#" tabindex="-1" v-if="!existeUser" @click="signOut">Sign Out</a>
                         </li>
                     </ul>
                     <form class="d-flex">
