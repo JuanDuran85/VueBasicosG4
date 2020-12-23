@@ -52,7 +52,7 @@ export default {
                             this.displayName = "";
                             this.photoURL = "";
                             console.log("usuario registrado...");
-                            this.$router.push({name: 'Home'});
+                            this.$router.push({name: 'Home'}); 
                         }).catch((error) => {
                             console.error(error);
                         });
