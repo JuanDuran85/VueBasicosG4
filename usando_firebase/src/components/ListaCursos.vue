@@ -27,7 +27,6 @@
 </template>
 
 <script>
-//import firebase from 'firebase';
 import { mapGetters } from "vuex";
 
 export default {
@@ -37,8 +36,8 @@ export default {
   },
   methods: {
     verificandoEmail(){
-      //firebase.auth().currentUser;
       if (!this.enviandoUser.emailVerified) {
+        // este metodo se emplea para enviar el correo de verificación de cuenta de usuario
         this.enviandoUser.sendEmailVerification().then(() => {
           console.log("Correo enviado");
         }).catch((error) => {

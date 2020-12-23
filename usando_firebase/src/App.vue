@@ -15,15 +15,16 @@ export default {
   components: { NavBar },
   name: 'App',
   mounted() {
+    // este metodo permite supervisar la conexion de los usuarios (si entran o salen de sesión)
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        this.$store.dispatch('user',user);
+        this.$store.dispatch('user',user); // si entra se envia la inforamcion del usuario a la store
       } else {
         console.log("cierre de sesion");
-        this.$store.dispatch('user',null);
+        this.$store.dispatch('user',null); //si sale, se borra la informacion de la store
       }
     });
-    this.$store.dispatch('llamarAPI');
+    this.$store.dispatch('llamarAPI'); // llamada de informacion de una api en la store
   },
 }
 </script>

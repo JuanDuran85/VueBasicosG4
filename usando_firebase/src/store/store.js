@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { conexApi } from '../services/apiConfig';
+import { conexApi } from '../services/apiConfig'; // variable con la función de conexión a api mediante axios en archivo externo
 
 Vue.use(Vuex)
 
@@ -30,6 +30,7 @@ export default new Vuex.Store({
       commit('mutarUser',datoUser);
     },
     async llamarAPI({commit}){
+      // con esta accion se llama a la funcion que conecta con la api, la cual se encuentra en un archivo externo
       let resultado = await conexApi();
       commit('mutandoAPI', resultado);
       /* axios.get('https://yesno.wtf/api').then(respuesta => {

@@ -31,6 +31,7 @@ export default {
   methods: {
     loginUser(){
       if (this.email && this.password.length >= 6) {
+        // metodo que permite ingresar con usuario(correo electrónico) y contraseña
         firebase.auth().signInWithEmailAndPassword(this.email, this.password)
         .then((result) => {
           console.log(result.user.uid);
@@ -39,7 +40,7 @@ export default {
           console.log(result.user.displayName);
           console.log(result.user.emailVerified);
           console.log("login");
-          this.$router.push({name: 'Home'});
+          this.$router.push({name: 'Home'}); // enviamos al usuario a la vista de home
         })
         .catch((error) => {
           console.error(error.code);
@@ -50,6 +51,7 @@ export default {
       }
     },
     recuperarEmail(){
+      // metodo que permite enviar al correo un enlace para reiniciar contraseña (el correo debe ser real)
       firebase.auth().sendPasswordResetEmail(this.email).then(() => {
         console.log("correo enviado.");
       }).catch((error) => {

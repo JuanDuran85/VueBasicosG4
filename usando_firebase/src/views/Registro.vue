@@ -41,8 +41,10 @@ export default {
       registrarUsuario(){
           if (this.email && this.displayName.length > 2 && this.password.length >= 6 && this.photoURL) {
               console.log("listo para registrar");
+              //este metodo permita crear un usuario con el correo y la contraseña
               firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
                 .then((respuesta) => {
+                    //este metodo permite actualizar el nombre y la imagen del usuario
                     return respuesta.user.updateProfile({
                             displayName: this.displayName,
                             photoURL: this.photoURL,

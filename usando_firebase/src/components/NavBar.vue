@@ -47,6 +47,7 @@ export default {
         }
     },
     methods: {
+        // este metodo se utiliza para cerrar la sesión de usuario activa al momento.
         signOut(){
             firebase.auth().signOut().then(() => {
                 console.log("cerro al sesion");
