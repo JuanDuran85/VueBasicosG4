@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { conexApi } from '../services/apiConfig'; // variable con la función de conexión a api mediante axios en archivo externo
+import firebase from 'firebase';
 
 Vue.use(Vuex)
 
@@ -8,6 +9,7 @@ export default new Vuex.Store({
   state: {
     user: null,
     respuestaApi: {},
+    cursos: []
   },
   getters: {
     enviandoUser(state){
@@ -15,6 +17,9 @@ export default new Vuex.Store({
     },
     enviandoAPI(state){
       return state.respuestaApi;
+    },
+    enviandoCursos(state){
+      return state.cursos;
     }
   },
   mutations: {
@@ -23,6 +28,9 @@ export default new Vuex.Store({
     },
     mutandoAPI(state,datos){
       state.respuestaApi = datos;
+    },
+    mutandoCursosDd(state,datos){
+      state.cursos = datos;
     }
   },
   actions: {
@@ -37,6 +45,68 @@ export default new Vuex.Store({
         console.log(respuesta.data);
         commit('mutandoAPI',respuesta.data);
       }).catch(error => console.error(error)); */
+    },
+    traerDatosCursos({commit}){
+      /* usar get cuando no se necesite leer datos en tiempo real, usar onSnapshot cuando se necesite leer siempre los datos para actualizar en tiempo real */
+      firebase.firestore().collection('cursos').onSnapshot((res)=>{
+        let datos = [];
+        res.forEach(element => {
+          datos.push({
+            idDoc:  element.id,
+            nombre: element.data().nombre,
+            duracion: element.data().duracion,
+            urlImagen: element.data().urlImagen,
+            completado: element.data().completado,
+            escuela: element.data().escuela,
+            favorito: element.data().favorito
+          })
+        })
+        commit('mutandoCursosDd', datos);
+     /*  firebase.firestore().collection('cursos').get().then(res =>{
+        let datos = [];
+        res.forEach(element => {
+          console.log(element.data(), element.id);
+          datos.push({
+            idDoc:  element.id,
+            nombre: element.data().nombre,
+            duracion: element.data().duracion,
+            urlImagen: element.data().urlImagen,
+            completado: element.data().completado,
+            escuela: element.data().escuela,
+            favorito: element.data().favorito
+          })
+        });
+        commit('mutandoCursosDd', datos);
+      }).catch(error => console.error(error)); */
+      }, error => console.error(error))
+    },
+    agregandoCurso(context, datos){
+      firebase.firestore().collection('cursos').add({
+        nombre: datos.nombre,
+        escuela: datos.escuela,
+        completado: false,
+        favorito: false,
+        duracion: datos.duracion,
+        urlImagen: datos.urlImagen
+      }).then(() => console.log("Agregado...")).catch(error => console.error(error));
+    },
+    borrandoCurso(context,id){
+      firebase.firestore().collection('cursos').doc(id)
+        .delete()
+        .then(()=>console.log('eliminado'))
+        .catch(error => console.error(error));
+    },
+    actualizandoCurso(context, datos){
+      firebase.firestore().collection('cursos').doc(datos.idDoc).update({
+        nombre: datos.nombre,
+        escuela: datos.escuela,
+        completado: datos.completado,
+        favorito: datos.favorito,
+        duracion: datos.duracion,
+        urlImagen: datos.urlImagen
+      })
+        .then(()=> console.log("Se actualizo"))
+        .catch(error => console.error(error));
     }
   },
 })

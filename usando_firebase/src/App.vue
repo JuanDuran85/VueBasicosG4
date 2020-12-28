@@ -25,6 +25,7 @@ export default {
       }
     });
     this.$store.dispatch('llamarAPI'); // llamada de informacion de una api en la store
+    this.$store.dispatch('traerDatosCursos');
   },
 }
 </script>
