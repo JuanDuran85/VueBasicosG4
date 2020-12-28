@@ -62,25 +62,10 @@ export default new Vuex.Store({
           })
         })
         commit('mutandoCursosDd', datos);
-     /*  firebase.firestore().collection('cursos').get().then(res =>{
-        let datos = [];
-        res.forEach(element => {
-          console.log(element.data(), element.id);
-          datos.push({
-            idDoc:  element.id,
-            nombre: element.data().nombre,
-            duracion: element.data().duracion,
-            urlImagen: element.data().urlImagen,
-            completado: element.data().completado,
-            escuela: element.data().escuela,
-            favorito: element.data().favorito
-          })
-        });
-        commit('mutandoCursosDd', datos);
-      }).catch(error => console.error(error)); */
       }, error => console.error(error))
     },
     agregandoCurso(context, datos){
+      // se usa el add para agregar un nuevo documento a la base de datos, se debe usar despues de una collection
       firebase.firestore().collection('cursos').add({
         nombre: datos.nombre,
         escuela: datos.escuela,
@@ -91,12 +76,14 @@ export default new Vuex.Store({
       }).then(() => console.log("Agregado...")).catch(error => console.error(error));
     },
     borrandoCurso(context,id){
+      // se usa el delete para borrar un documento, se debe utilizar despues de un doc indicando el id o identificacion del documento a borrar
       firebase.firestore().collection('cursos').doc(id)
         .delete()
         .then(()=>console.log('eliminado'))
         .catch(error => console.error(error));
     },
     actualizandoCurso(context, datos){
+      // el update se utiliza para actualizar un documento en especifico, se debe indicar cual es el id del documento. Se puede pasar uno o todos los valores a actualizar, no borrar los valores que no se actualicen.
       firebase.firestore().collection('cursos').doc(datos.idDoc).update({
         nombre: datos.nombre,
         escuela: datos.escuela,
