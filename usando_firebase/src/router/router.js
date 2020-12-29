@@ -33,7 +33,18 @@ const routes = [
   {
     path: '/administracion',
     name: 'Administracion',
-    component: () => import(/* webpackChunkName: "administracion" */ '../views/Administracion.vue')
+    component: () => import(/* webpackChunkName: "administracion" */ '../views/Administracion.vue'),
+    meta: {
+      requiresAuth: true // el meta se utiliza para las rutas que se quieran resguardar (Navigation Guards)
+    }
+  },
+  {
+    path: '/pacientes',
+    name: 'Pacientes',
+    component: () => import(/* webpackChunkName: "Pacientes" */ '../views/Pacientes.vue'),
+    meta: {
+      requiresAuth: true // el meta se utiliza para las rutas que se quieran resguardar (Navigation Guards)
+    }
   },
   {
     path: '*',

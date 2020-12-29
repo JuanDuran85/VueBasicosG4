@@ -23,6 +23,9 @@
                         <li class="nav-item">
                             <router-link class="nav-link" :class="activandoSOut" :to="{name: 'Administracion'}" v-if="!existeUser">Administracion</router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link class="nav-link" :class="activandoSOut" :to="{name: 'Pacientes'}" v-if="!existeUser">Pacientes</router-link>
+                        </li>
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -46,18 +46,19 @@ export default {
                 .then((respuesta) => {
                     //este metodo permite actualizar el nombre y la imagen del usuario
                     return respuesta.user.updateProfile({
-                            displayName: this.displayName,
-                            photoURL: this.photoURL,
-                        }).then(() => {
-                            this.email = ""; 
-                            this.password = "";
-                            this.displayName = "";
-                            this.photoURL = "";
-                            console.log("usuario registrado...");
-                            this.$router.push({name: 'Home'}); 
-                        }).catch((error) => {
-                            console.error(error);
-                        });
+                        displayName: this.displayName,
+                        photoURL: this.photoURL,
+                    }).then(() => {
+                        this.email = ""; 
+                        this.password = "";
+                        this.displayName = "";
+                        this.photoURL = "";
+                        console.log("usuario registrado...");
+                        this.$store.dispatch('registrarMedico',respuesta.user);
+                        this.$router.push({name: 'Home'}); 
+                    }).catch((error) => {
+                        console.error(error);
+                    });
                 })
                 .catch((error) => {
                     console.log(error.code);
