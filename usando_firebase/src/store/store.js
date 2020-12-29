@@ -133,6 +133,11 @@ export default new Vuex.Store({
     },
     borrandoPaciente(context,id){
       firebase.firestore().collection('medicos').doc(context.state.user.uid).collection('pacientes').doc(id).delete().then(()=>console.log("paciente borrado")).catch(error => console.error(error));
+    },
+    actualizandoPaciente(context,datos){
+      firebase.firestore().collection('medicos').doc(context.state.user.uid).collection('pacientes').doc(datos.idDoc).update({...datos})
+        .then(()=>console.log("paciente actualizado"))
+        .catch(error => console.error(error));
     }
   },
 })

@@ -110,8 +110,8 @@ export default {
         eliminandoPaciente(id){
             this.$store.dispatch('borrandoPaciente',id);
         },
-        editandoCurso(idDoc){
-            this.$router.push({name: 'Editando', params: {id: idDoc}});
+        editandoPaciente(idDoc){
+            this.$router.push({name: 'EditarPaciente', params: {id: idDoc}});
         }
     },
     mounted() {

@@ -25,10 +25,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "Registro" */ '../views/Registro.vue')
   },
   {
+    path: '/perfil',
+    name: 'Perfil',
+    component: () => import(/* webpackChunkName: "Perfil" */ '../views/Perfil.vue')
+  },
+  {
     path: '/editando/:id',
     name: 'Editando',
     props: true,
     component: () => import(/* webpackChunkName: "Editando" */ '../views/Editando.vue')
+  },
+  {
+    path: '/editar-paciente/:id',
+    name: 'EditarPaciente',
+    props: true,
+    component: () => import(/* webpackChunkName: "Editando" */ '../views/EditarPaciente.vue')
   },
   {
     path: '/administracion',

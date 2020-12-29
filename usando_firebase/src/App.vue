@@ -24,7 +24,6 @@ export default {
         this.$store.dispatch('user',null); //si sale, se borra la informacion de la store
       }
     });
-    this.$store.dispatch('llamarAPI'); // llamada de informacion de una api en la store
     this.$store.dispatch('traerDatosCursos');
   },
 }

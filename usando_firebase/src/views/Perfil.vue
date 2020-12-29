@@ -1,12 +1,12 @@
 <template>
   <div class="my-5 container">
-    <div v-if="enviandoUser">
+    <div v-if="enviandoUser" class="centrado">
       <h1 class="text-center">Bienvenido</h1>
-      <div class="card">
+      <div class="card text-center">
         <img :src="enviandoUser.photoURL" class="card-img-top" :alt="enviandoUser.displayName">
         <div class="card-body">
           <h5 class="card-title">Nombre de Usuario: {{enviandoUser.displayName}}</h5>
-          <p class="card-text">Correo Electrónico{{enviandoUser.email}}.</p>
+          <p class="card-text">Correo Electrónico: {{enviandoUser.email}}.</p>
           <a href="#" class="btn btn-primary" @click="verificandoEmail">Enviar Verificación</a>
         </div>
       </div>
@@ -38,7 +38,7 @@ export default {
     verificandoEmail(){
       if (!this.enviandoUser.emailVerified) {
         // este metodo se emplea para enviar el correo de verificación de cuenta de usuario
-        this.enviandoUser.sendEmailVerification().then(() => {
+          this.enviandoUser.sendEmailVerification().then(() => {
           console.log("Correo enviado");
         }).catch((error) => {
           console.error(error)
@@ -47,10 +47,22 @@ export default {
         console.log("El Correo ya esta verificado");
       }
     }
-  }
+  },
+  mounted() {
+      this.$store.dispatch('llamarAPI'); // llamada de informacion de una api en la store
+  },
 }
 </script>
 
 <style scoped lang="scss">
-
+.centrado{
+    margin: 0 auto;
+  .card {
+    img {
+      margin: 0 auto;
+      max-width: 80%;
+      max-height: 300px;
+    }
+  }
+}
 </style>
