@@ -16,7 +16,7 @@ Vue.use(IconsPlugin);
 Vue.config.productionTip = false;
 
 firebase.initializeApp(firebaseConfig);
-console.log(process.env.API_KEY);
+console.log(process.env.VUE_APP_API_KEY);
 new Vue({
   router,
   store,

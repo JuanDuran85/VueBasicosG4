@@ -51,6 +51,7 @@ export default {
                     type: 'success'
                 });
                 this.$router.replace({name: 'Login'});
+                this.$store.dispatch('borrarFavoritosLocal');
             }).catch((error) => {
                 console.error(error);
             });
