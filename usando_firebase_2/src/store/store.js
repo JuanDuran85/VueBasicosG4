@@ -46,6 +46,13 @@ export default new Vuex.Store({
     },
     mutandoOpiniones(state,opinionBD){
       state.opiniones = opinionBD;
+    },
+    borrandoOpinionLocal(state){
+      state.opiniones = [];
+    },
+    borrandoOpiLocal(state,idDoc){
+      let resultado = state.opiniones.findIndex(indice => indice.idDoc === idDoc);
+      state.opiniones.splice(resultado,1);
     }
   },
   actions: {
@@ -122,6 +129,15 @@ export default new Vuex.Store({
           context.commit('mutandoOpiniones',opinionesAux);
         })
       })
+    },
+    borrarOpinionesLocal({commit}){
+      commit('borrandoOpinionLocal')
+    },
+    eliminarOpinion(context,opinion){
+      return firebase.firestore().collection('usuariosInfo').doc(context.state.user.uid).collection('opiniones').doc(opinion.idDoc).delete();
+    },
+    borrandoOpinionLocal({commit},item){
+      commit('borrandoOpiLocal',item.idDoc);
     }
   },
 })

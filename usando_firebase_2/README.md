@@ -1,5 +1,5 @@
 # usando_firebase_2
-
+https://firebase.google.com/docs/reference/android/com/google/firebase/Timestamp
 ## Project setup
 ```
 yarn install

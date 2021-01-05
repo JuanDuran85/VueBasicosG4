@@ -52,6 +52,7 @@ export default {
                 });
                 this.$router.replace({name: 'Login'});
                 this.$store.dispatch('borrarFavoritosLocal');
+                this.$store.dispatch('borrarOpinionesLocal');
             }).catch((error) => {
                 console.error(error);
             });
