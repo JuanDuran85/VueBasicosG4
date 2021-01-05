@@ -22,7 +22,9 @@
                     <b-button type="submit" variant="primary">Login</b-button>
                     <b-button type="reset" variant="danger" class="mx-3">Reset</b-button>
                 </b-form>
-                    <b-button type="reset" variant="info" class="float-right" @click="recuperarClave">Recuperar Clave</b-button>
+                <div class="divBoton">
+                    <b-button type="reset" variant="info" class="botonRC" @click="recuperarClave">Recuperar Clave</b-button>
+                </div>
             </div>
         </b-container>
     </div>
@@ -115,6 +117,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    
+    .divBoton {
+        text-align: center;
+        width: 100%;
+        margin: 0 auto;
+        .botonRC {
+            margin: 40px auto;
+        }
+    }
 </style>

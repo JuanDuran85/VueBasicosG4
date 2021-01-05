@@ -17,6 +17,10 @@
           <a href="#" class="card-link">Card link</a>
           <a href="#" class="card-link">Another link</a>
         </div>
+        <div class="my-5">
+          <button type="button" class="btn btn-primary">Boton 1</button>
+          <button type="button" class="btn btn-success">Boton 2</button>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .female{
     background-color: fuchsia;
   }

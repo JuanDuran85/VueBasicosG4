@@ -29,6 +29,7 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  @import './assets/scss/index';
+  @import '~bootstrap/scss/bootstrap.scss';
 </style>
