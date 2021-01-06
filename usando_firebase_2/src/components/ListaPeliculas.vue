@@ -1,6 +1,6 @@
 <template>
   <b-container class="my-5">
-    <h1 class="text-center my-5">Lista de Peliculas</h1>
+    <h1 class="text-center my-5">Lista de Peliculas top 20 Popularres</h1>
     <b-row>
       <b-col cols="12" sm="12" md="6" lg="4" xl="4" v-for="(peli,index) in enviarPeliculas.results" :key="index">
         <b-card :title="peli.title" :img-src="`https://image.tmdb.org/t/p/w500${peli.poster_path}`" :img-alt="peli.title" img-top tag="article" class="mb-2">
