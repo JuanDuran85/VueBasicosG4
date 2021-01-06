@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2 class="my-5">Peliculas Favoritas</h2>
+        <h2 class="my-5">Peliculas Favoritas del Usuario</h2>
         <div class="d-flex justify-content-center" v-if="mostrando">
             <div class="spinner-border" role="status">
                 <span class="sr-only">Loading...</span>
