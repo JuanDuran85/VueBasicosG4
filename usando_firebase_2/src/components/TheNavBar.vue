@@ -6,7 +6,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
                     <b-nav-item :to="{name: 'Home'}">Home</b-nav-item>
-                    <b-nav-item :to="{name: 'Login'}">Login</b-nav-item>
+                    <b-nav-item :to="{name: 'Login'}" data-cy="loginBoton">Login</b-nav-item>
                     <b-nav-item :to="{name: 'Registro'}">Registro</b-nav-item>
                 </b-navbar-nav>
 
@@ -17,16 +17,16 @@
                         <b-button size="sm" class="my-2 my-sm-0" type="submit">Busqueda</b-button>
                     </b-nav-form>
 
-                    <b-nav-item-dropdown right v-if="enviandoUser">
+                    <b-nav-item-dropdown right v-if="enviandoUser" >
                         <template #button-content>
-                            <em class="ml-2">{{enviandoUser.displayName}}</em>
+                            <em class="ml-2" data-cy="usuarioNombre">{{enviandoUser.displayName}}</em>
                             <div class="foto">
                                 <img :src="enviandoUser.photoURL" alt="imagen">
                             </div>
                         </template>
                         <b-dropdown-item :to="{name: 'Administracion'}">Administración</b-dropdown-item>
-                        <b-dropdown-item :to="{name: 'Favoritos'}">Favoritos</b-dropdown-item>
-                        <b-dropdown-item @click="cerrarSesion">Sign Out</b-dropdown-item>
+                        <b-dropdown-item :to="{name: 'Favoritos'}" data-cy="visitarFav">Favoritos</b-dropdown-item>
+                        <b-dropdown-item @click="cerrarSesion" data-cy="salidaBoton">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>

@@ -1,5 +1,6 @@
 <template>
   <b-container class="my-5">
+    <h1 class="text-center my-5">Lista de Peliculas</h1>
     <b-row>
       <b-col cols="12" sm="12" md="6" lg="4" xl="4" v-for="(peli,index) in enviarPeliculas.results" :key="index">
         <b-card :title="peli.title" :img-src="`https://image.tmdb.org/t/p/w500${peli.poster_path}`" :img-alt="peli.title" img-top tag="article" class="mb-2">
@@ -7,7 +8,7 @@
             {{peli.overview | recorte}}
           </b-card-text>
           <div v-if="enviandoUser">
-            <b-button href="#" variant="primary" @click="$bvModal.show('modal-scrollable-'+index)">Ver más</b-button>
+            <b-button href="#" variant="primary" @click="$bvModal.show('modal-scrollable-'+index)" :data-cy="'verMas'+index">Ver más</b-button>
             <b-button href="#" variant="info" class="mx-3" @click="$bvModal.show('modal-opiniones-'+index)">Opinar</b-button>
           </div>
           <div v-else>
@@ -28,7 +29,7 @@
             <span>Cerrar</span>
           </template>
           <template #modal-ok>
-            <span @click="agregarFav(peli)">Favoritos</span>
+            <span @click="agregarFav(peli)" data-cy="agregarFav">Favoritos</span>
           </template>
         </b-modal>
 

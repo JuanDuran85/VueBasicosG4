@@ -6,7 +6,7 @@
                 <b-form @submit.prevent="loginUser" @reset="onReset" v-if="showFormReg">
                     
                     <b-form-group id="input-group-2" label="Correo Electrónico:" label-for="input-2" description="Tú información no será compartida.">
-                        <b-form-input id="input-2" v-model="form.email" type="email" placeholder="Ingresa tu correo electrónico" required ></b-form-input>
+                        <b-form-input id="input-email" v-model="form.email" type="email" placeholder="Ingresa tu correo electrónico" required ></b-form-input>
                     </b-form-group>
 
                     <b-form-group id="input-group-3" label="Password:" label-for="input-3">
@@ -19,8 +19,8 @@
                         </b-form-valid-feedback>
                     </b-form-group>
 
-                    <b-button type="submit" variant="primary">Login</b-button>
-                    <b-button type="reset" variant="danger" class="mx-3">Reset</b-button>
+                    <b-button type="submit" variant="primary" data-cy="loginBotonEntrar">Login</b-button>
+                    <b-button type="reset" variant="danger" class="mx-3" data-cy="resetBoton">Reset</b-button>
                 </b-form>
                 <div class="divBoton">
                     <b-button type="reset" variant="info" class="botonRC" @click="recuperarClave">Recuperar Clave</b-button>
