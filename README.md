@@ -65,5 +65,5 @@ yarn add firebase -D
       ```bash
       yarn build
     ```
-14. Terminado el procesod e produccion de vue-cli, se debe enviar los archivos de la carpeta dist al hosting de firebase, mediante la instruccion: ```firebase deploy --only hosting```
+15. Terminado el procesod e produccion de vue-cli, se debe enviar los archivos de la carpeta dist al hosting de firebase, mediante la instruccion: ```firebase deploy --only hosting```
     
