@@ -82,7 +82,6 @@
                         mdi-delete
                     </v-icon>
                 </template>
-            
             </v-data-table>
         </div>
     </v-container>
@@ -139,7 +138,7 @@ export default {
             return new Intl.NumberFormat('cl', {style: 'currency', currency: 'CLP'}).format(valor);
         },
         formatoFecha(valor){
-            let fecha = valor.toDate().getDate() + "-" + valor.toDate().getMonth()+1 + "-" + valor.toDate().getFullYear();
+            let fecha = new Intl.DateTimeFormat('cl').format(valor.toDate());
             return fecha; // toDate() metodo propio de firebase para trasnformar la base de datos con fechas 
         }
     },
@@ -181,23 +180,34 @@ export default {
             this.$refs.form.resetValidation()
         },
         eliminando(item){
-            console.log("eliminando", item);
-            this.$store.dispatch('eliminandoCurso',item.idDoc).then(()=>{
-                Swal.fire(
-                    'Muy Bien',
-                    'Curso eliminado con éxito',
-                    'success'
-                );
-            });
+            Swal.fire({
+                title: '<span class="font-weight-regular">¿Seguro que deseas eliminar el curso?</span>',
+                text: 'No se puede volver a recuperar',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2196F3',
+                cancelButtonColor: '#F44336',
+                cancelButtonText: '<span style="color: white"><strong>Cancelar</strong></span>',
+                confirmButtonText: '<span style="color: white"><strong>Si, borrar!</strong></span>'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$store.dispatch('eliminandoCurso',item.idDoc).then(()=>{
+                        Swal.fire(
+                            'Eliminado',
+                            'El curso fue eliminado',
+                            'success'
+                        )
+                    });
+                }
+            })
         },
         editando(item){
-            console.log("editando", item);
             this.$router.push({name: 'Editando', params: {id: item.idDoc}});
         }
     },
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import '~@sweetalert2/theme-material-ui/material-ui.scss';
 </style>

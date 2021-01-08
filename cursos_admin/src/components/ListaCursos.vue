@@ -41,6 +41,14 @@
                     <div>Completado: {{ curso.terminado ? 'Si' : 'No' }}</div>
                   </div>
                 </v-timeline-item>
+                <v-timeline-item color="deep-purple lighten-1" small>
+                  <div>
+                    <div class="font-weight-normal">
+                      Fecha de Registro:
+                    </div>
+                    <div>{{  curso.fecharegistro | formatoFecha}}</div>
+                  </div>
+                </v-timeline-item>
               </v-timeline>
             </v-card-text>
           </v-card>
@@ -72,6 +80,12 @@ export default {
       this.mostrar = false;
     },3000)
   },
+  filters: {
+    formatoFecha(valor){
+      let fecha = new Intl.DateTimeFormat('cl').format(valor.toDate());
+      return fecha; // toDate() metodo propio de firebase para trasnformar la base de datos con fechas
+    }
+  }
 }
 </script>
 

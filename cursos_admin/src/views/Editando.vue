@@ -86,7 +86,8 @@ export default {
             this.precio = parseInt(cursoEncontrado.precio); 
             this.terminado = cursoEncontrado.terminado;
             let fecha = cursoEncontrado.fecharegistro.toDate();
-            this.fecharegistro = fecha.getFullYear()+"-"+ fecha.getMonth()+1 + "-0"+fecha.getDate() ;
+            fecha = new Intl.DateTimeFormat('cl').format(fecha);
+            this.fecharegistro = fecha.split("-").reverse().join("-");
         } else {
             Swal.fire({
                 icon: 'error',
@@ -114,7 +115,6 @@ export default {
                     fecharegistro: new Date(this.fecharegistro),
                     idDoc: this.idDoc
                 };
-                console.log(cursoNuevo);
                 this.$store.dispatch('actualizandoCurso',cursoNuevo).then(()=>{
                     Swal.fire(
                         'Muy Bien',

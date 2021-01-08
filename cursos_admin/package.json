@@ -15,6 +15,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@sweetalert2/theme-material-ui": "^4.0.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
