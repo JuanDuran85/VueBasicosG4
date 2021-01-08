@@ -31,6 +31,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "Administracion" */ '../views/Administracion.vue')
   },
   {
+    path: '/editando/:id',
+    props: true,
+    name: 'Editando',
+    meta: {
+      requiredAuth: true
+    },
+    component: () => import(/* webpackChunkName: "Editando" */ '../views/Editando.vue')
+  },
+  {
     path: '*',
     redirect: {name: 'Login'}
   }

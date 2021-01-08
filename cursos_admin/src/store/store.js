@@ -38,7 +38,7 @@ export default new Vuex.Store({
             nombre: element.data().nombre,
             precio: element.data().precio,
             terminado: element.data().terminado,
-            idCurso: element.data().id,
+            idCurso: element.data().idCurso,
             idDoc: element.id,
           })
         });
@@ -47,6 +47,15 @@ export default new Vuex.Store({
     },
     cargandoUsuario({commit},userData){
       commit('mutandoUserLocal',userData);
+    },
+    agregandoCurso(context,cursoNuevo){
+      return firebase.firestore().collection('cursos').add({...cursoNuevo});
+    },
+    eliminandoCurso(context,idDoc){
+      return firebase.firestore().collection('cursos').doc(idDoc).delete();
+    },
+    actualizandoCurso(context,cursoActual){
+      return firebase.firestore().collection('cursos').doc(cursoActual.idDoc).update({...cursoActual});
     }
   },
   modules: {

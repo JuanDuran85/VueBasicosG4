@@ -15,8 +15,19 @@
                         <v-card-text>
                             <v-container>
                                 <v-form ref="form" v-model="valid" lazy-validation>
+                                    <!-- nombre del curso -->
                                     <v-text-field v-model="nombre" :counter="20" :rules="nombreRules" label="Nombre" required></v-text-field>
-                                    <v-text-field v-model="url" :rules="urlRules" label="Imagen del curso" required></v-text-field>
+                                    <!-- imagen del curso -->
+                                    <v-text-field v-model="imagen" label="URL de la Imagen del curso" required type="url"></v-text-field>
+                                    <!-- cupos del curso -->
+                                    <v-text-field v-model="cupos" :rules="cuposRules" label="Cupos del curso" required type="number"></v-text-field>
+                                    <!-- duracion del curso -->
+                                    <v-text-field v-model="duracion" label="Duración del curso" required></v-text-field>
+                                    <!-- precio del curso -->
+                                    <v-text-field v-model="precio" :rules="precioRules" label="Precio del curso" required type="number"></v-text-field>
+                                    <!-- id del curso -->
+                                    <v-text-field v-model="idCurso" label="Id del curso" required></v-text-field>
+
                                     <div class="mt-5">
                                         <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
                                             Validate
@@ -35,9 +46,6 @@
                             <v-spacer></v-spacer>
                             <v-btn color="blue darken-1" text @click="dialog = false">
                                 Cerrar
-                            </v-btn>
-                            <v-btn color="blue darken-1" text @click="dialog = false">
-                                Agregar
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -59,6 +67,21 @@
                         {{ item.fecharegistro | formatoFecha}}
                     </v-chip>
                 </template>
+                
+                <template v-slot:item.terminado="{ item }">
+                    <v-chip :color="item.terminado ? 'green' : 'brown lighten-3'" dark>
+                        {{ item.terminado ? 'Si' : 'No'}}
+                    </v-chip>
+                </template>
+
+                <template v-slot:item.acciones="{ item }">
+                    <v-icon small class="mr-3" @click="editando(item)">
+                        mdi-pencil
+                    </v-icon>
+                    <v-icon small @click="eliminando(item)">
+                        mdi-delete
+                    </v-icon>
+                </template>
             
             </v-data-table>
         </div>
@@ -67,16 +90,30 @@
 
 <script>
 import {mapGetters} from 'vuex';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'AdministraList',
     data() {
         return {
+            valid: true,
             nombre: '',
-            url: '',
+            imagen: '',
+            idCurso: '',
+            cupos: 0,
+            cuposRules: [
+                v => !!v || 'Cupos es requerido',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+            ],
+            duracion: '',
+            precio: 0,
+            precioRules: [
+                v => !!v || 'Precio es requerido',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+            ],
             nombreRules: [
                 v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+                v => (v && v.length >= 2) || 'Name must be less than 10 characters',
             ],
             dialog: false,
             headers: [
@@ -90,6 +127,7 @@ export default {
                 { text: 'Precio', value: 'precio' },
                 { text: 'Terminado', value: 'terminado' },
                 { text: 'Fecha', value: 'fecharegistro' },
+                { text: 'Acciones', value: 'acciones' },
             ],
         }
     },
@@ -104,7 +142,59 @@ export default {
             let fecha = valor.toDate().getDate() + "-" + valor.toDate().getMonth()+1 + "-" + valor.toDate().getFullYear();
             return fecha; // toDate() metodo propio de firebase para trasnformar la base de datos con fechas 
         }
-    }
+    },
+    methods: {
+        validate () {
+            this.$refs.form.validate();
+            if (this.$refs.form.validate()) {
+                let cursoNuevo = {
+                    nombre: this.nombre,
+                    idCurso: this.idCurso,
+                    precio: parseFloat(this.precio),
+                    cupos: parseInt(this.cupos),
+                    imagen: this.imagen,
+                    duracion: this.duracion,
+                    terminado: false,
+                    fecharegistro: new Date()
+                };
+                this.$store.dispatch('agregandoCurso',cursoNuevo).then(()=>{
+                    Swal.fire(
+                        'Muy Bien',
+                        'Curso agregado con éxito',
+                        'success'
+                    );
+                    this.reset();
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Existen errores en los datos',
+                    footer: 'Intenta nuevamente'
+                });
+            }
+        },
+        reset () {
+            this.$refs.form.reset()
+        },
+        resetValidation () {
+            this.$refs.form.resetValidation()
+        },
+        eliminando(item){
+            console.log("eliminando", item);
+            this.$store.dispatch('eliminandoCurso',item.idDoc).then(()=>{
+                Swal.fire(
+                    'Muy Bien',
+                    'Curso eliminado con éxito',
+                    'success'
+                );
+            });
+        },
+        editando(item){
+            console.log("editando", item);
+            this.$router.push({name: 'Editando', params: {id: item.idDoc}});
+        }
+    },
 }
 </script>
 
