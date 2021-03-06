@@ -1,9 +1,12 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router/router';
+import store from './store/store';
+import firebase from 'firebase';
+import { firebaseConfig } from "@/config/firebaseConfig";
 import vuetify from './plugins/vuetify';
 
+firebase.initializeApp(firebaseConfig);
 Vue.config.productionTip = false
 
 new Vue({
