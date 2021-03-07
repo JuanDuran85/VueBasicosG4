@@ -36,6 +36,7 @@ export default new Vuex.Store({
             imagen: element.data().imagen,
             nombre: element.data().nombre,
             costo: element.data().costo,
+            fecharegistro: element.data().fecharegistro,
             estado: element.data().estado,
             codigo: element.data().codigo,
             descripcion: element.data().descripcion,

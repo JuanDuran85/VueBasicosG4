@@ -16,26 +16,33 @@
                             <v-container>
                                 <v-form ref="form" v-model="valid" lazy-validation>
                                     <!-- nombre del curso -->
-                                    <v-text-field v-model="nombre" :counter="20" :rules="nombreRules" label="Nombre" required></v-text-field>
+                                    <v-text-field v-model="nombre" :counter="40" :rules="nombreRules" label="Nombre" required></v-text-field>
                                     <!-- imagen del curso -->
                                     <v-text-field v-model="imagen" label="URL de la Imagen del curso" required type="url"></v-text-field>
                                     <!-- cupos del curso -->
                                     <v-text-field v-model="cupos" :rules="cuposRules" label="Cupos del curso" required type="number"></v-text-field>
                                     <!-- duracion del curso -->
                                     <v-text-field v-model="duracion" label="Duración del curso" required></v-text-field>
-                                    <!-- precio del curso -->
-                                    <v-text-field v-model="precio" :rules="precioRules" label="Precio del curso" required type="number"></v-text-field>
-                                    <!-- id del curso -->
-                                    <v-text-field v-model="idCurso" label="Id del curso" required></v-text-field>
+                                    <!-- costo del curso -->
+                                    <v-text-field v-model="costo" :rules="precioRules" label="Costo del curso" required type="number"></v-text-field>
+                                    <!-- codigo del curso -->
+                                    <v-text-field v-model="codigo" label="Código del curso" required></v-text-field>
+                                     <!-- Descripcion -->
+                                    <v-textarea
+                                        outlined
+                                        label="Descripción del curso"
+                                        v-model="descripcion"
+                                        >
+                                    </v-textarea>
 
                                     <div class="mt-5">
-                                        <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+                                        <v-btn :disabled="!valid" color="success" class="mr-4" @click.prevent="validate">
                                             Validate
                                         </v-btn>
-                                        <v-btn color="error" class="mr-4" @click="reset">
+                                        <v-btn color="error" class="mr-4" @click.prevent="reset">
                                             Reset Form
                                         </v-btn>
-                                        <v-btn color="warning" @click="resetValidation">
+                                        <v-btn color="warning" @click.prevent="resetValidation">
                                             Reset Validation
                                         </v-btn>
                                     </div>
@@ -56,9 +63,9 @@
         <div>
             <v-data-table :headers="headers" :items="enviandoCursos" :items-per-page="5" item-key="nombre" class="elevation-1" :footer-props="{ showFirstLastPage: true, firstIcon: 'mdi-arrow-collapse-left', lastIcon: 'mdi-arrow-collapse-right', prevIcon: 'mdi-minus', nextIcon: 'mdi-plus'}">
 
-                <template v-slot:item.precio="{ item }">
+                <template v-slot:item.costo="{ item }">
                     <v-chip color="green" dark>
-                        {{ item.precio | formatoNum}}
+                        {{ item.costo | formatoNum}}
                     </v-chip>
                 </template>
 
@@ -68,19 +75,29 @@
                     </v-chip>
                 </template>
                 
-                <template v-slot:item.terminado="{ item }">
-                    <v-chip :color="item.terminado ? 'green' : 'brown lighten-3'" dark>
-                        {{ item.terminado ? 'Si' : 'No'}}
+                <template v-slot:item.estado="{ item }">
+                    <v-chip :color="item.estado ? 'blue lighten-1' : 'brown lighten-3'" dark>
+                        {{ item.estado ? 'Si' : 'No'}}
                     </v-chip>
                 </template>
 
                 <template v-slot:item.acciones="{ item }">
-                    <v-icon small class="mr-3" @click="editando(item)">
-                        mdi-pencil
-                    </v-icon>
-                    <v-icon small @click="eliminando(item)">
-                        mdi-delete
-                    </v-icon>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-icon small class="mr-3" @click="editando(item)" v-bind="attrs" v-on="on">
+                                mdi-pencil
+                            </v-icon>
+                        </template>
+                        <span>Editar</span>
+                    </v-tooltip>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-icon small @click="eliminando(item)" v-bind="attrs" v-on="on">
+                                mdi-delete
+                            </v-icon>
+                        </template>
+                        <span>Eliminar</span>
+                    </v-tooltip>
                 </template>
             </v-data-table>
         </div>
@@ -98,16 +115,17 @@ export default {
             valid: true,
             nombre: '',
             imagen: '',
-            idCurso: '',
+            codigo: '',
             cupos: 0,
             cuposRules: [
                 v => !!v || 'Cupos es requerido',
                 v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
             ],
             duracion: '',
-            precio: 0,
+            costo: 0,
+            descripcion: '',
             precioRules: [
-                v => !!v || 'Precio es requerido',
+                v => !!v || 'Costo es requerido',
                 v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
             ],
             nombreRules: [
@@ -123,8 +141,8 @@ export default {
                 },
                 { text: 'Cupos', value: 'cupos' },
                 { text: 'Duración', value: 'duracion' },
-                { text: 'Precio', value: 'precio' },
-                { text: 'Terminado', value: 'terminado' },
+                { text: 'Costo', value: 'costo' },
+                { text: 'Estado', value: 'estado' },
                 { text: 'Fecha', value: 'fecharegistro' },
                 { text: 'Acciones', value: 'acciones' },
             ],
@@ -148,22 +166,39 @@ export default {
             if (this.$refs.form.validate()) {
                 let cursoNuevo = {
                     nombre: this.nombre,
-                    idCurso: this.idCurso,
-                    precio: parseFloat(this.precio),
+                    codigo: this.codigo,
+                    costo: parseFloat(this.costo),
                     cupos: parseInt(this.cupos),
                     imagen: this.imagen,
                     duracion: this.duracion,
-                    terminado: false,
+                    estado: false,
+                    descripcion: this.descripcion,
                     fecharegistro: new Date()
                 };
-                this.$store.dispatch('agregandoCurso',cursoNuevo).then(()=>{
-                    Swal.fire(
-                        'Muy Bien',
-                        'Curso agregado con éxito',
-                        'success'
-                    );
-                    this.reset();
-                });
+                Swal.fire({
+                    title: '¿Seguro que deseas agregar el curso?',
+                    text: "",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, agregar curso!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.$store.dispatch('agregandoCurso',cursoNuevo).then(()=>{
+                            Swal.fire(
+                                'Muy Bien',
+                                'Curso agregado con éxito',
+                                'success'
+                            );
+                            this.reset();
+                            this.dialog = false;
+                        });
+                    } else {
+                        this.reset();
+                        this.dialog = false;
+                    }
+                })
             } else {
                 Swal.fire({
                     icon: 'error',
