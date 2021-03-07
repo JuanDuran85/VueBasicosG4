@@ -15,6 +15,12 @@ export default new Vuex.Store({
     },
     enviandoUser(state){
       return state.user;
+    },
+    enviarTotalAlumnosPermitos(state,getters){
+      return getters.enviandoCursos.map(state=>state.cupos).reduce((total,suma) => total+suma,0);
+    },
+    enviarTotalAlumnosInscritos(state,getters){
+      return getters.enviandoCursos.map(state =>state.inscritos).reduce((total,suma)=>total+suma,0);
     }
   },
   mutations: {
@@ -40,6 +46,7 @@ export default new Vuex.Store({
             estado: element.data().estado,
             codigo: element.data().codigo,
             descripcion: element.data().descripcion,
+            inscritos: element.data().inscritos,
             idDoc: element.id,
           })
         });

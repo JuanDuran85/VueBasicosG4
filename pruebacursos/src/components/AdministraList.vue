@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div class="my-8 d-flex justify-center">
-            <h2 class="my-5 text-center display-3 mx-4">Administración</h2>
+            <h2 class="my-5 text-center mx-1">Administración</h2>
              <!-- modal para registrar curso -->
             <section class="my-auto">
                 <v-dialog v-model="dialog" persistent max-width="600px" >
@@ -101,6 +101,23 @@
                 </template>
             </v-data-table>
         </div>
+        <div class="mt-8">
+            <v-alert color="purple" dense elevation="1" icon="mdi-account-group" outlined>
+                Cantidad toal de alumnos permitidos: <strong>{{enviarTotalAlumnosPermitos}}</strong> alumnos
+            </v-alert>
+            <v-alert color="blue" dense elevation="1" icon="mdi-account-multiple-check" outlined>
+                Cantidad total de alumnos inscritos: <strong>{{enviarTotalAlumnosInscritos}}</strong> alumnos
+            </v-alert>
+            <v-alert color="red" dense elevation="1" icon="mdi-account-clock" outlined>
+                Cantidad total de cupos restantes: <strong>{{cuposRestantes}}</strong> alumnos
+            </v-alert>
+            <v-alert color="pink" dense elevation="1" icon="mdi-block-helper" outlined>
+                Cantidad total de cursos terminados: <strong>XXX</strong> cursos.
+            </v-alert>
+            <v-alert color="brown" dense elevation="1" icon="mdi-bell-ring" outlined>
+                Cantidad total de cursos activos: <strong>XXX</strong> cursos.
+            </v-alert>
+        </div>
     </v-container>
 </template>
 
@@ -140,16 +157,20 @@ export default {
                     value: 'nombre',
                 },
                 { text: 'Cupos', value: 'cupos' },
+                { text: 'Inscritos', value: 'inscritos' },
                 { text: 'Duración', value: 'duracion' },
                 { text: 'Costo', value: 'costo' },
-                { text: 'Estado', value: 'estado' },
+                { text: 'Terminado', value: 'estado' },
                 { text: 'Fecha', value: 'fecharegistro' },
                 { text: 'Acciones', value: 'acciones' },
             ],
         }
     },
     computed: {
-    ...mapGetters(['enviandoCursos'])
+    ...mapGetters(['enviandoCursos','enviarTotalAlumnosPermitos','enviarTotalAlumnosInscritos']),
+    cuposRestantes(){
+        return this.enviarTotalAlumnosPermitos - this.enviarTotalAlumnosInscritos;
+    }
     },
     filters: {
         formatoNum(valor){
