@@ -121,6 +121,9 @@
             <v-alert color="brown" dense elevation="1" icon="mdi-bell-ring" outlined>
                 Cantidad total de cursos activos: <strong>{{cursosActivos}}</strong> cursos.
             </v-alert>
+            <v-alert color="deep-orange" dense elevation="1" icon="mdi-bell-ring" outlined>
+                Cantidad total de cursos: <strong>{{cantidadTotalCursos}}</strong> cursos.
+            </v-alert>
         </div>
     </v-container>
 </template>
@@ -177,13 +180,16 @@ export default {
         }
     },
     computed: {
-    ...mapGetters(['enviandoCursos','enviarTotalAlumnosPermitos','enviarTotalAlumnosInscritos','enviarTotalCursosTerminados']),
-    cuposRestantes(){
-        return this.enviarTotalAlumnosPermitos - this.enviarTotalAlumnosInscritos;
-    },
-    cursosActivos(){
-        return this.enviandoCursos.length - this.enviarTotalCursosTerminados;
-    }
+        ...mapGetters(['enviandoCursos','enviarTotalAlumnosPermitos','enviarTotalAlumnosInscritos','enviarTotalCursosTerminados']),
+        cuposRestantes(){
+            return this.enviarTotalAlumnosPermitos - this.enviarTotalAlumnosInscritos;
+        },
+        cursosActivos(){
+            return this.enviandoCursos.length - this.enviarTotalCursosTerminados;
+        },
+        cantidadTotalCursos(){
+            return this.enviandoCursos.length;
+        }
     },
     filters: {
         formatoNum(valor){

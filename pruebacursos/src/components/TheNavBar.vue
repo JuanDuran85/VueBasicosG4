@@ -2,7 +2,7 @@
     <div>
     <v-app-bar color="deep-purple" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>Cursos TIC</v-toolbar-title>
+      <v-toolbar-title @click="$router.push({name: 'Home'})" class="cursor">Cursos TIC</v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="mr-14">
         <v-btn icon v-if="enviandoUser" @click="salidaOut">
@@ -92,6 +92,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.cursor{
+  &:hover {
+    cursor: pointer;
+  }
+}
 </style>
