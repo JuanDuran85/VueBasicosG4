@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <div class="my-8 d-flex justify-center">
-            <h2 class="my-5 text-center mx-1">Administración</h2>
+            <h2 class="my-5 text-center mx-1 text-h5 text-sm-h2">Administración</h2>
              <!-- modal para registrar curso -->
             <section class="my-auto">
                 <v-dialog v-model="dialog" persistent max-width="600px" >
@@ -21,6 +21,8 @@
                                     <v-text-field v-model="imagen" label="URL de la Imagen del curso" required type="url"></v-text-field>
                                     <!-- cupos del curso -->
                                     <v-text-field v-model="cupos" :rules="cuposRules" label="Cupos del curso" required type="number"></v-text-field>
+                                    <!-- inscritos en el curso -->
+                                    <v-text-field v-model="inscritos" :rules="inscritosRules" label="Inscritos en el curso" required type="number"></v-text-field>
                                     <!-- duracion del curso -->
                                     <v-text-field v-model="duracion" label="Duración del curso" required></v-text-field>
                                     <!-- costo del curso -->
@@ -35,17 +37,19 @@
                                         >
                                     </v-textarea>
 
-                                    <div class="mt-5">
-                                        <v-btn :disabled="!valid" color="success" class="mr-4" @click.prevent="validate">
+                                    <v-container class="mt-5 d-flex justify-center align-content-center flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
+                                        <v-btn :disabled="!valid" color="success" class="mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="validate">
                                             Validate
                                         </v-btn>
-                                        <v-btn color="error" class="mr-4" @click.prevent="reset">
+
+                                        <v-btn color="error" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="reset">
                                             Reset Form
                                         </v-btn>
-                                        <v-btn color="warning" @click.prevent="resetValidation">
+
+                                        <v-btn color="warning" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="resetValidation">
                                             Reset Validation
                                         </v-btn>
-                                    </div>
+                                    </v-container>
                                 </v-form>
                             </v-container>
                         </v-card-text>
@@ -112,10 +116,10 @@
                 Cantidad total de cupos restantes: <strong>{{cuposRestantes}}</strong> alumnos
             </v-alert>
             <v-alert color="pink" dense elevation="1" icon="mdi-block-helper" outlined>
-                Cantidad total de cursos terminados: <strong>XXX</strong> cursos.
+                Cantidad total de cursos terminados: <strong>{{enviarTotalCursosTerminados}}</strong> cursos.
             </v-alert>
             <v-alert color="brown" dense elevation="1" icon="mdi-bell-ring" outlined>
-                Cantidad total de cursos activos: <strong>XXX</strong> cursos.
+                Cantidad total de cursos activos: <strong>{{cursosActivos}}</strong> cursos.
             </v-alert>
         </div>
     </v-container>
@@ -134,9 +138,15 @@ export default {
             imagen: '',
             codigo: '',
             cupos: 0,
+            inscritos: 0,
             cuposRules: [
                 v => !!v || 'Cupos es requerido',
                 v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+            ],
+            inscritosRules: [
+                v => !!v || 'La cantidad de Inscritos es requerida',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+                v => (v <= this.cupos) || 'La cantidad de inscritos no puede pasar la cantidad de cupos disponibles',
             ],
             duracion: '',
             costo: 0,
@@ -167,9 +177,12 @@ export default {
         }
     },
     computed: {
-    ...mapGetters(['enviandoCursos','enviarTotalAlumnosPermitos','enviarTotalAlumnosInscritos']),
+    ...mapGetters(['enviandoCursos','enviarTotalAlumnosPermitos','enviarTotalAlumnosInscritos','enviarTotalCursosTerminados']),
     cuposRestantes(){
         return this.enviarTotalAlumnosPermitos - this.enviarTotalAlumnosInscritos;
+    },
+    cursosActivos(){
+        return this.enviandoCursos.length - this.enviarTotalCursosTerminados;
     }
     },
     filters: {
@@ -191,6 +204,7 @@ export default {
                     costo: parseFloat(this.costo),
                     cupos: parseInt(this.cupos),
                     imagen: this.imagen,
+                    inscritos: this.inscritos,
                     duracion: this.duracion,
                     estado: false,
                     descripcion: this.descripcion,

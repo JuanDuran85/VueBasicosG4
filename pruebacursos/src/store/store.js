@@ -21,6 +21,15 @@ export default new Vuex.Store({
     },
     enviarTotalAlumnosInscritos(state,getters){
       return getters.enviandoCursos.map(state =>state.inscritos).reduce((total,suma)=>total+suma,0);
+    },
+    enviarTotalCursosTerminados(state,getters){
+      let count = 0;
+      getters.enviandoCursos.filter(state => {
+        if(state.estado){
+          count++;
+        }
+      });
+      return count;
     }
   },
   mutations: {
@@ -65,7 +74,5 @@ export default new Vuex.Store({
     actualizandoCurso(context,cursoActual){
       return firebase.firestore().collection('cursos').doc(cursoActual.idDoc).update({...cursoActual});
     }
-  },
-  modules: {
   }
 })
