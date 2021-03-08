@@ -39,15 +39,15 @@
 
                                     <v-container class="mt-5 d-flex justify-center align-content-center flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
                                         <v-btn :disabled="!valid" color="success" class="mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="validate">
-                                            Validate
+                                            Agregar
                                         </v-btn>
 
                                         <v-btn color="error" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="reset">
-                                            Reset Form
+                                            Limpiar Formulario
                                         </v-btn>
 
                                         <v-btn color="warning" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="resetValidation">
-                                            Reset Validation
+                                            Limpiar Validación
                                         </v-btn>
                                     </v-container>
                                 </v-form>
@@ -107,7 +107,7 @@
         </div>
         <div class="mt-8">
             <v-alert color="purple" dense elevation="1" icon="mdi-account-group" outlined>
-                Cantidad toal de alumnos permitidos: <strong>{{enviarTotalAlumnosPermitos}}</strong> alumnos
+                Cantidad total de alumnos permitidos: <strong>{{enviarTotalAlumnosPermitos}}</strong> alumnos
             </v-alert>
             <v-alert color="blue" dense elevation="1" icon="mdi-account-multiple-check" outlined>
                 Cantidad total de alumnos inscritos: <strong>{{enviarTotalAlumnosInscritos}}</strong> alumnos
@@ -210,7 +210,7 @@ export default {
                     costo: parseFloat(this.costo),
                     cupos: parseInt(this.cupos),
                     imagen: this.imagen,
-                    inscritos: this.inscritos,
+                    inscritos: parseInt(this.inscritos),
                     duracion: this.duracion,
                     estado: false,
                     descripcion: this.descripcion,
@@ -223,6 +223,7 @@ export default {
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
+                    cancelButtonText: '<span style="color: white">Cancelar</span>',
                     confirmButtonText: 'Si, agregar curso!'
                 }).then((result) => {
                     if (result.isConfirmed) {

@@ -16,7 +16,7 @@
                 <!-- costo del curso -->
                 <v-text-field v-model="costo" :rules="costoRules" label="Costo del curso" required></v-text-field>
                 <!-- id del curso -->
-                <v-text-field v-model="codigo" label="Id del curso" required></v-text-field>
+                <v-text-field v-model="codigo" label="Código del curso" required></v-text-field>
                  <!-- decripcion del curso -->
                 <v-textarea
                     outlined
@@ -31,15 +31,15 @@
                 
                 <v-container class="mt-5 d-flex justify-center align-content-center flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
                     <v-btn :disabled="!valid" color="success" class="mt-2 mt-sm-2 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="validate">
-                        Validate
+                        Actualizar
                     </v-btn>
 
                     <v-btn color="error" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="reset">
-                        Reset Form
+                        Limpiar Formulario
                     </v-btn>
 
                     <v-btn color="warning" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="resetValidation">
-                        Reset Validation
+                        Limpiar Validación
                     </v-btn>
 
                     <v-btn color="primary" class="mt-4 mt-sm-4 mt-md-0 mt-lg-0 mt-xl-0 mx-4" @click="$router.go(-1)">
@@ -111,7 +111,7 @@ export default {
             this.imagen = cursoEncontrado.imagen;
             this.descripcion = cursoEncontrado.descripcion;
             this.nombre = cursoEncontrado.nombre;
-            this.costo = parseInt(cursoEncontrado.costo); 
+            this.costo = parseFloat(cursoEncontrado.costo); 
             this.estado = cursoEncontrado.estado;
             this.inscritos = parseInt(cursoEncontrado.inscritos);
             let fecha = cursoEncontrado.fecharegistro.toDate();
