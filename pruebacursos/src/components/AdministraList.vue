@@ -1,7 +1,7 @@
 <template>
     <v-container>
-        <div class="my-8 d-flex justify-center">
-            <h2 class="my-5 text-center mx-1 text-h5 text-sm-h2">Administración</h2>
+        <div class="my-6 d-flex justify-center">
+            <h2 class="my-2 text-center mx-1 text-h5 text-sm-h2">Administración</h2>
              <!-- modal para registrar curso -->
             <section class="my-auto">
                 <v-dialog v-model="dialog" persistent max-width="600px" >

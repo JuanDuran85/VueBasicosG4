@@ -2,7 +2,7 @@
     <div>
     <v-app-bar color="deep-purple" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title @click="$router.push({name: 'Home'})" class="cursor">Cursos Jocelyn & CO</v-toolbar-title>
+      <v-toolbar-title class="cursor">Cursos AlfaWeb</v-toolbar-title>
       <v-spacer></v-spacer>
       <div class="mr-14">
         <v-btn icon v-if="enviandoUser" @click="salidaOut">
@@ -74,14 +74,12 @@ export default {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
-            title: 'Logout con éxito',
+            title: 'Log Out con éxito',
             showConfirmButton: false,
             timer: 1500
           });
           setTimeout(()=>{
-            this.$router.push({name: 'Login'}).catch(error => {
-                console.info(error.message)
-            });
+            this.$router.push({name: 'Login'}).catch(() => {});
           },1000)
 
         }).catch((error) => {
