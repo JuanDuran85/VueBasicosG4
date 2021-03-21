@@ -72,22 +72,22 @@ export default {
             cupos: 0,
             cuposRules: [
                 v => !!v || 'Cupos es requerido',
-                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser números positivos',
             ],
             inscritosRules: [
                 v => !!v || 'La cantidad de Inscritos es requerida',
-                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser números positivos',
                 v => (v <= this.cupos) || 'La cantidad de inscritos no puede pasar la cantidad de cupos disponibles',
             ],
             duracion: '',
             costo: 0,
             costoRules: [
                 v => !!v || 'Costo es requerido',
-                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser numeros positivos',
+                v => (v && v.length >= 0 && /\d/gmi.test(v) && v >= 0) || 'Solo deben ser números positivos',
             ],
             nombreRules: [
                 v => !!v || 'Name is required',
-                v => (v && v.length >= 2) || 'El nombre devbe ser mayor o igual a dos caracteres',
+                v => (v && v.length >= 2) || 'El nombre debe ser mayor o igual a dos caracteres',
             ],
             dialog: false,
             fecharegistro: '',
